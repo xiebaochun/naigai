@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "start": "gulp"
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "gulp-babel": "^7.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "browser-sync": "^2.18.12",
+    "cssnano": "^3.10.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^7.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "postcss-clearfix": "^1.0.0"
+  }
+}

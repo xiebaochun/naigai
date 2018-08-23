@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" styel="background:#f3aad5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>七度空间大广节100%纯棉红包雨</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  
+    <!--自己写的样式  -->
+    <link rel="stylesheet" href="./src/scss/main.css">
+    <script src="https://cdn.bootcss.com/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        window.baseURI = 'http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/';
+        window.IP=''
+        window.scoketIp='111.230.11.47:5125' //120.76.45.115:5125
+    </script>
+</head>
+
+<body style="background: url(http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/bg.jpg)no-repeat;background-size: 100% 100%;margin: 0 auto">
+    <input type="hidden" id='nickname' value="PC页">
+    <input type="hidden" id="nickid" value="PC">
+    <input type="hidden" id="nickpic" value="http://ofvbasfrz.bkt.clouddn.com/qpmoveone/image/dd.png">
+	
+	<audio src="http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/bg.mp3"  id="bgMusic" loop="loop" autoplay="autoplay" preload="auto" autoplay="autoplay"></audio>
+
+    <div id="gameContainer"></div>
+    <img src="http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/foot_1.png" alt="" class="foot footMove">
+    <div class="loading" id="loading">
+        <p id="loadingText">loading...</p>
+    </div>
+
+    <div class="page page1">
+        <!-- <img src="./assets/logo.png" alt="" class="logo"> -->
+        <div class="main">
+            <div class="icon" style="background: url(./assets/numIcon.png)no-repeat;background-size: 100% 100%;">当前人数:<i id="numP">0</i></div>
+            <img src="http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/ewm.png" alt="" class="ewm">
+        </div>
+    </div>
+
+    <div class="page page2 hide fadeIn">
+        <div class="box clearfix">
+            <h1>棉花</h1>
+            <div class="hp" >
+                <div style="background: url(http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/hp.png)no-repeat center center;">
+                    <p></p>
+                    <img src="http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/runMH.png" alt="" class="run">
+                    <img src="http://ofvbasfrz.bkt.clouddn.com/twoPcH5/assets/runGif.gif" alt="" class="runGif">
+                </div>
+            </div>
+            <h2>0%</h2>
+        </div>
+    </div>
+    
+    
+    <!--解决点击300ms延迟  -->
+    <script src="http://ofvbasfrz.bkt.clouddn.com/maioyi/vendor/fastclick.min.js"></script>
+    <!--$框架  -->
+    <script src="http://ofvbasfrz.bkt.clouddn.com/maioyi/vendor/zepto.min.js"></script>
+    <!-- 初始化js -->
+    <script src="./src/webinit.js"></script>
+    <!--工具类  -->
+    <script src="./src/utils.js"></script>
+    <!--phaser2.8  -->
+    <script src="http://ofvbasfrz.bkt.clouddn.com/maioyi/vendor/phaser.min.js"></script>
+   
+    <!--场景类合并  -->
+    <script src="./src/state.all.js?b=52"></script>
+
+    <!--主入口  -->
+    <script src="./src/app.js"></script>
+
+</body>
+
+</html>
