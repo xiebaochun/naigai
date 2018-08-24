@@ -425,31 +425,7 @@ function init() {
 	//
 
 	window.addEventListener( 'resize', onWindowResize, false );
-	setTimeout(function(){
-		setInterval(function(){
-			var temp = targets.helix;
-			targets.helix = [];
-			for ( var i = 0, l = temp.length; i < l; i ++ ) {
-
-				var phi = temp[i].phi + 0.001;
-
-				var object = new THREE.Object3D();
-
-				object.position.x = L * Math.sin( phi );
-				object.position.y = - ( i * K ) + y_;
-				object.position.z = H * Math.cos( phi );
-				object.phi = phi;
-				vector.x = 0;//object.position.x * 2;
-				vector.y = 1000;//object.position.y;
-				vector.z = 3000;//object.position.z * 2;
-
-				object.lookAt( vector );
-
-				targets.helix.push( object );
-			}
-			transform( targets.helix, 5);
-		},1000/60);
-	},100);
+	
 }
 
 function initLines() {
@@ -519,7 +495,31 @@ function onWindowResize() {
 }
 
 function animate() {
+	setTimeout(function(){
+		setInterval(function(){
+			var temp = targets.helix;
+			targets.helix = [];
+			for ( var i = 0, l = temp.length; i < l; i ++ ) {
 
+				var phi = temp[i].phi + 0.001;
+
+				var object = new THREE.Object3D();
+
+				object.position.x = L * Math.sin( phi );
+				object.position.y = - ( i * K ) + y_;
+				object.position.z = H * Math.cos( phi );
+				object.phi = phi;
+				vector.x = 0;//object.position.x * 2;
+				vector.y = 1000;//object.position.y;
+				vector.z = 3000;//object.position.z * 2;
+
+				object.lookAt( vector );
+
+				targets.helix.push( object );
+			}
+			transform( targets.helix, 5);
+		},1000/60);
+	},100);
 	requestAnimationFrame( animate );
 	
 	TWEEN.update();

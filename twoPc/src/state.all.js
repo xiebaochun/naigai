@@ -394,28 +394,8 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.crossOrigin = true;
         // common
         this.load.image('logo', base + 'top_logo.png');
-        this.load.image('bar_back', base + 'bar_back.png');
-        this.load.image('bar_front', base + 'bar_front.png');
-        this.load.image('bottom_sprites', base + 'bottom_sprites.png');
-        this.load.image('caihongbao', base + 'caihongbao.png');
-        this.load.image('DSRD_1', base + 'DSRD_1.png');
-        this.load.image('DSRD_2', base + 'DSRD_2.png');
-        this.load.image('DSRD', base + 'DSRD.png');
-        this.load.image('fubeg', base + 'fubeg.png');
-        this.load.image('icon_01', base + 'icon_01.png');
-        this.load.image('icon_02', base + 'icon_02.png');
-        this.load.image('icon_03', base + 'icon_03.png');
-        this.load.image('loading', base + 'loading.png');
-        this.load.image('percent', base + 'percent.png');
-        this.load.image('redpacket_02', base + 'redpacket_02.png');
-        this.load.image('redpacket', base + 'redpacket.png');
-        this.load.image('secne_1_2', base + 'secne_1_2.png');
-        this.load.image('secne_1_bg', base + 'secne_1_bg.png');
-        this.load.image('secne_3_02', base + 'secne_3_02.png');
-        this.load.image('secne_04_01', base + 'secne_04_01.png');
-        this.load.image('sidai', base + 'sidai.png');
-        this.load.image('slogen', base + 'slogen.png');
-        this.load.image('s0logen_sub', base + 'sologen_sub.png');
+        this.load.image('bg', base + 'secne_1_bg.png');
+        this.load.image('bg', base + 'secne_1_1.png');
 
         this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
@@ -569,83 +549,17 @@ var State3 = Object.assign({}, BaseState, {
         console.log(Object);
 
         setTimeout(function(){
-            _this2.state.start('State4');
-        },5000);
+            _this.state.start('State4');
+        },1000);
 
-        jdFun();
-        var points = 0;
-        function addPoint() {
-            points++;
-            if(points >=2){
-                _this2.state.start('State4'); 
-            }
-        }
-
-        function jdFun() {
-            let SHAKE_THRESHOLD = 3000;
-            let last_update = 0;
-            let x = 0;
-            let y = 0;
-            let z = 0;
-            let last_x = 0;
-            let last_y = 0;
-            let last_z = 0;
-            let num = 0;
-            let isprint = false;
-            if (window.DeviceMotionEvent) {
-                window.addEventListener('devicemotion', deviceMotionHandler, false);
-            }
-
-            function deviceMotionHandler(eventData) {
-                let acceleration = eventData.accelerationIncludingGravity;
-                let curTime = new Date().getTime();
-                if ((curTime - last_update) > 100&&window.firstShow==true) {
-                    let diffTime = curTime - last_update;
-                    last_update = curTime;
-                    x = acceleration.x;
-                    y = acceleration.y;
-                    z = acceleration.z;
-                    let speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
-
-                    let x1 = Math.abs(x - last_x);
-                    let y1 = Math.abs(y - last_y);
-                    let z1 = Math.abs(z - last_z);
-                    let max = 0;
-                    if (x1 > y1) {
-                        if (x1 > z1) {
-                            max = x1;
-                        } else {
-                            max = z1;
-                        }
-                    } else {
-                        if (y1 > z1) {
-                            max = y1;
-                        } else {
-                            max = z1;
-                        }
-                    }
-                    if (max > 40) {
-                        isprint = true;
-                        num++;
-                        addPoint();
-                        if (num >= 100) {
-                            num = 100
-                        }
-                    }
-                    last_x = x;
-                    last_y = y;
-                    last_z = z;
-                }
-            }
-        }
-        // var obj = this.asw(w / 2, h / 2, 'logo', 50);
-        // // this.fromLeft(obj, function() {
-        // //   console.log('animation ok')
-        // // }, 5000)
-        // this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
-        //     _this2.dangling(obj);
-        // });
-        // console.log('create');
+        var obj = this.asw(w / 2, h / 2, 'logo', 50);
+        // this.fromLeft(obj, function() {
+        //   console.log('animation ok')
+        // }, 5000)
+        this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
+            _this2.dangling(obj);
+        });
+        console.log('create');
     }
 
 });
