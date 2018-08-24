@@ -444,13 +444,13 @@ var State1 = Object.assign({}, BaseState, {
         var that = this;
         //that.state.start('State4');return;
         setTimeout(function(){
-            //that.state.start('State2');
+            that.state.start('State2');
         },2000);
 
         var jd = 0;
         var runHow = false;
-        var logo = this.asw(w * .025, h * .025, 'logo', 30);
-        logo.anchor.set(0, 0);
+        //var logo = this.asw(w * .025, h * .025, 'logo', 30);
+        //logo.anchor.set(0, 0);
         window.firstShow = true;
 
         window.Api.saveUser();
