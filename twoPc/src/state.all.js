@@ -394,10 +394,31 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.crossOrigin = true;
         // common
         this.load.image('logo', base + 'top_logo.png');
-        this.load.image('bg', base + 'secne_1_bg.png');
-        this.load.image('bg', base + 'secne_1_1.png');
-        
-        this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
+        this.load.image('bar_back', base + 'bar_back.png');
+        this.load.image('bar_front', base + 'bar_front.png');
+        this.load.image('coin_1', base + 'coin_1.png');
+        this.load.image('DSRD_01', base + 'DSRD_01.png');
+        this.load.image('DSRD', base + 'DSRD.png');
+        this.load.image('flash', base + 'flash.png');
+        this.load.image('frame', base + 'frame.png');
+        this.load.image('fudai', base + 'fudai.png');
+        this.load.image('loading', base + 'loading.png');
+        this.load.image('no.1', base + 'no.1.png');
+        this.load.image('no.2', base + 'no.2.png');
+        this.load.image('no.3', base + 'no.3.png');
+        this.load.image('percent', base + 'percent.png');
+        this.load.image('readpacket', base + 'readpacket.png');
+        this.load.image('redpacket', base + 'redpacket.png');
+        this.load.image('scene_4_1', base + 'scene_4_1.png');
+        this.load.image('secne_1_1', base + 'secne_1_1.png');
+        this.load.image('secne_1_bg', base + 'secne_1_bg.png');
+        this.load.image('secne_2_bg', base + 'secne_2_bg.png');
+        this.load.image('secne_3_1', base + 'secne_3_1.png');
+        this.load.image('secne_3_2', base + 'secne_3_2.png');
+        this.load.image('secne_4_4', base + 'secne_4_4.png');
+        this.load.image('secne4_1', base + 'secne4_1.png');
+        this.load.image('secne4_3', base + 'secne4_3.png');
+        //this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
         this.load.onFileComplete.add(function (progess) {
             //document.getElementById('loadingText').innerHTML = progess + '%'
