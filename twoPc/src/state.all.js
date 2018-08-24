@@ -442,7 +442,7 @@ var State1 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-        that.state.start('State2');
+        //that.state.start('State4');return;
         setTimeout(function(){
             //that.state.start('State2');
         },2000);
@@ -576,7 +576,7 @@ var State3 = Object.assign({}, BaseState, {
 
 
         var that=this;
-        var addressX=[.1,.3,.7,.9,.6,.8,.2,.4,.5]
+        var addressX=[.1,.3,.65,.7,.55,.85,.75,.6,.8,.2,.4,.5]
         var xNum=0;
         var xNum_1 = 0;
         var time=5;
@@ -598,7 +598,7 @@ var State3 = Object.assign({}, BaseState, {
             //alert(game.world.centerX)
             var emitter2 = game.add.emitter(game.world.centerX/2, game.world.centerY/2, 50);
 
-            emitter2.makeParticles('coin_1');
+            emitter2.makeParticles('icon_01');
 
             emitter2.minParticleSpeed.setTo(-1500, -1500);
             emitter2.maxParticleSpeed.setTo(1500, 1500);
@@ -624,7 +624,7 @@ var State3 = Object.assign({}, BaseState, {
                 emitter3.destroy();
               },1000)
               //gameStart()
-              game.time.events.repeat(Phaser.Timer.SECOND *.2, 30000, createOne, this);
+              game.time.events.repeat(Phaser.Timer.SECOND *.05, 30000, createOne, this);
               setTimeout(function(){
                 _this2.state.start('State4');
               },30000);
@@ -634,9 +634,9 @@ var State3 = Object.assign({}, BaseState, {
 
         function createOne(){
             var sp=game.add.sprite(game.width*addressX[xNum],0, 'readpacket',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
-            that.setSize(sp,game.height*.1,false);
+            that.setSize(sp,game.height*game.rnd.integerInRange(1,3)*.03,false);
             xNum++;
-            if(xNum>5){
+            if(xNum>11){
               xNum=0
             }
             sp.anchor.set(.5);
@@ -652,8 +652,8 @@ var State3 = Object.assign({}, BaseState, {
               sp.destroy()
             })
 
-            var sp_1=game.add.sprite(game.width*addressX[xNum+1],0, 'coin_1',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
-            that.setSize(sp_1,game.height*.08,false);
+            var sp_1=game.add.sprite(game.width*addressX[xNum]-100,-100, 'icon_01',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
+            that.setSize(sp_1,game.height*game.rnd.integerInRange(1,3)*0.03,false);
             
             sp_1.anchor.set(.5);
 
@@ -686,13 +686,16 @@ var State4 = Object.assign({}, BaseState, {
 
 
         console.log(Object);
-        var obj = this.asw(w / 2, h / 2, 'logo', 50);
+        var obj = this.asw(w / 2, h / 2, 'scene_4_1', 20);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
         this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
             _this3.dangling(obj);
         });
+
+
+        var obj = this.asw(w *.6, h *.65, 'DSRD_01', 10);
         console.log('create');
     }
 
