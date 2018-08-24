@@ -569,7 +569,7 @@ var State3 = Object.assign({}, BaseState, {
         console.log(Object);
 
         setTimeout(function(){
-            _this2.state.start('State4');
+            //_this2.state.start('State4');
         },5000);
 
         jdFun();
@@ -577,7 +577,7 @@ var State3 = Object.assign({}, BaseState, {
         function addPoint() {
             points++;
             if(points >=2){
-                _this2.state.start('State4'); 
+                //_this2.state.start('State4'); 
             }
         }
 
@@ -664,24 +664,55 @@ var State3 = Object.assign({}, BaseState, {
 
             emitter2.minParticleSpeed.setTo(-1000, -1000);
             emitter2.maxParticleSpeed.setTo(1000, 1000);
-            emitter2.minParticleScale = 0.15;
-            emitter2.maxParticleScale = .15;
+            emitter2.minParticleScale = 0.25;
+            emitter2.maxParticleScale = .85;
             emitter2.gravity = 10;
             emitter2.start(true, 2000,null,1000);
+
+
+            // 红包粒子
+            var emitter3 = game.add.emitter(game.world.centerX, game.world.centerY, 50);
+            emitter3.makeParticles('redpacket');
+            emitter3.minParticleSpeed.setTo(-1000, -1000);
+            emitter3.maxParticleSpeed.setTo(1000, 1000);
+            emitter3.minParticleScale = 0.35;
+            emitter3.maxParticleScale = .75;
+            emitter3.gravity = 10;
+            emitter3.start(true, 2000,null,1000);
 
             setTimeout(function(){
               setTimeout(function(){
                 emitter2.destroy()
+                emitter3.destroy();
               },1000)
-              gameStart()
+              //gameStart()
               game.time.events.repeat(Phaser.Timer.SECOND *.2, 100000, createOne, this);
             },1500)
           })
         })
 
         function createOne(){
-            var sp=game.add.sprite(game.width*addressX[xNum],0, 'spObj',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
-            that.setSize(sp,game.height*.2,false);
+            var sp=game.add.sprite(game.width*addressX[xNum],0, 'redpacket',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
+            that.setSize(sp,game.height*.1,false);
+            xNum++;
+            if(xNum>5){
+              xNum=0
+            }
+            sp.anchor.set(.5);
+
+            game.add.tween(sp).to({y:game.height*1.2}, 2000, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(() => {
+              sp.destroy()
+            })
+            sp.inputEnabled = false
+            sp.events.onInputDown.add(function() {
+              score++;
+              $('#score').text(score)
+              sp.inputEnabled = false
+              sp.destroy()
+            })
+
+            var sp=game.add.sprite(game.width*addressX[xNum],0, 'icon_01',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
+            that.setSize(sp,game.height*.08,false);
             xNum++;
             if(xNum>5){
               xNum=0
