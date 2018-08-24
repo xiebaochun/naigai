@@ -645,13 +645,13 @@ var State3 = Object.assign({}, BaseState, {
         var xNum=0;
         var time=5;
         var score=0
-        var logo = this.asw(w*.025, h*.025, 'logo',15)
-        logo.anchor.set(0,0);
+        //var logo = this.asw(w*.45, h*.025, 'fubeg',15)
+        //logo.anchor.set(0,0);
         var group = game.add.group()
 
         //document.getElementById('bgMusic').pause()
 
-        var mh = this.asw(game.world.centerX,h*.4, 'icon_01',50)
+        var mh = this.asw(game.world.centerX,h*.4, 'fubeg',50)
         mh.anchor.set(.5);
         game.add.tween(mh).to({angle:10}, 100, Phaser.Easing.Linear.In, true, 0,10, true).onComplete.add(() => {
           game.add.tween(mh).to({width:mh.width*1.3,height:mh.height*1.3}, 200, Phaser.Easing.Linear.In, true, 0,0, false).onComplete.add(() => {
@@ -724,7 +724,7 @@ var State4 = Object.assign({}, BaseState, {
 
 
         console.log(Object);
-        var obj = this.asw(w / 2, h / 2, 'logo', 50);
+        var obj = this.asw(w / 2, h / 2, 'caihongbao', 50);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
