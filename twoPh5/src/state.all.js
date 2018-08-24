@@ -440,7 +440,7 @@ var State1 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-
+        that.state.start('State3');return;
         setTimeout(function(){
             that.state.start('State2');
         },2000);
@@ -643,6 +643,7 @@ var State3 = Object.assign({}, BaseState, {
         var that=this;
         var addressX=[.1,.9,.6,.8,.2,.5]
         var xNum=0;
+        var xNum_1 = 0;
         var time=5;
         var score=0
         //var logo = this.asw(w*.45, h*.025, 'fubeg',15)
@@ -706,7 +707,7 @@ var State3 = Object.assign({}, BaseState, {
             game.add.tween(sp).to({y:game.height*1.2}, 2000, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(() => {
               sp.destroy()
             })
-            sp.inputEnabled = false
+            sp.inputEnabled = true
             sp.events.onInputDown.add(function() {
               score++;
               $('#score').text(score)
@@ -714,23 +715,20 @@ var State3 = Object.assign({}, BaseState, {
               sp.destroy()
             })
 
-            var sp=game.add.sprite(game.width*addressX[xNum],0, 'icon_01',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
-            that.setSize(sp,game.height*.08,false);
-            xNum++;
-            if(xNum>5){
-              xNum=0
-            }
-            sp.anchor.set(.5);
+            var sp_1=game.add.sprite(game.width*addressX[xNum+1],0, 'icon_01',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
+            that.setSize(sp_1,game.height*.08,false);
+            
+            sp_1.anchor.set(.5);
 
-            game.add.tween(sp).to({y:game.height*1.2}, 2000, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(() => {
-              sp.destroy()
+            game.add.tween(sp_1).to({y:game.height*1.2}, 2000, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(() => {
+              sp_1.destroy()
             })
-            sp.inputEnabled = false
-            sp.events.onInputDown.add(function() {
+            sp_1.inputEnabled = true
+            sp_1.events.onInputDown.add(function() {
               score++;
               $('#score').text(score)
-              sp.inputEnabled = false
-              sp.destroy()
+              sp_1.inputEnabled = false
+              sp_1.destroy()
             })
         }
         // var obj = this.asw(w / 2, h / 2, 'logo', 50);
