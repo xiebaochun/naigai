@@ -447,8 +447,8 @@ var State1 = Object.assign({}, BaseState, {
 
         var jd = 0;
         var runHow = false;
-        var logo = this.asw(w * .025, h * .025, 'logo', 30);
-        logo.anchor.set(0, 0);
+        //var logo = this.asw(w * .025, h * .025, 'logo', 30);
+        //logo.anchor.set(0, 0);
         window.firstShow = true;
 
         window.Api.saveUser();
@@ -651,7 +651,7 @@ var State3 = Object.assign({}, BaseState, {
 
         //document.getElementById('bgMusic').pause()
 
-        var mh = this.asw(game.world.centerX,h*.4, 'fubeg',50)
+        var mh = this.asw(game.world.centerX,h*.55, 'fubeg',50)
         mh.anchor.set(.5);
         game.add.tween(mh).to({angle:10}, 100, Phaser.Easing.Linear.In, true, 0,10, true).onComplete.add(() => {
           game.add.tween(mh).to({width:mh.width*1.3,height:mh.height*1.3}, 200, Phaser.Easing.Linear.In, true, 0,0, false).onComplete.add(() => {
@@ -724,13 +724,18 @@ var State4 = Object.assign({}, BaseState, {
 
 
         console.log(Object);
-        var obj = this.asw(w / 2, h / 2, 'caihongbao', 50);
+        var obj = this.asw(w / 2, h *.6, 'caihongbao', 50);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
         this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
             _this3.dangling(obj);
         });
+
+        var DSRD = this.asw(w * .8, h *.7, 'DSRD', 25);
+
+        DSRD.anchor.set(.5);
+
         console.log('create');
     }
 
