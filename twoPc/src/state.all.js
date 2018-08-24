@@ -144,8 +144,9 @@ window.Api = {
 };
 
 var durTime = 300;
-var w = window.innerWidth * window.devicePixelRatio;
-var h = window.innerHeight * window.devicePixelRatio;
+//alert(window.devicePixelRatio)
+var w = window.innerWidth;// * window.devicePixelRatio;
+var h = window.innerHeight;// * window.devicePixelRatio;
 
 var BaseState = {
 
@@ -396,7 +397,7 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.image('logo', base + 'top_logo.png');
         this.load.image('bar_back', base + 'bar_back.png');
         this.load.image('bar_front', base + 'bar_front.png');
-        this.load.image('coin_1', base + 'coin_1.png');
+        this.load.image('icon_01', base + 'icon_01.png');
         this.load.image('DSRD_01', base + 'DSRD_01.png');
         this.load.image('DSRD', base + 'DSRD.png');
         this.load.image('flash', base + 'flash.png');
@@ -441,7 +442,7 @@ var State1 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-
+        that.state.start('State2');
         setTimeout(function(){
             //that.state.start('State2');
         },2000);
@@ -570,16 +571,103 @@ var State3 = Object.assign({}, BaseState, {
         console.log(Object);
 
         setTimeout(function(){
-            _this.state.start('State4');
+            //_this.state.start('State4');
         },1000);
 
-        var obj = this.asw(w / 2, h / 2, 'logo', 50);
+
+        var that=this;
+        var addressX=[.1,.3,.7,.9,.6,.8,.2,.4,.5]
+        var xNum=0;
+        var xNum_1 = 0;
+        var time=5;
+        var score=0
+        //var logo = this.asw(w*.45, h*.025, 'fubeg',15)
+        //logo.anchor.set(0,0);
+        var group = game.add.group()
+        var mh = this.asw(w / 2, h *.5, 'fudai', 10);
+        // obj.anchor.set(0,0);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
-        this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
-            _this2.dangling(obj);
-        });
+        mh.anchor.set(.5);
+        game.add.tween(mh).to({angle:10}, 100, Phaser.Easing.Linear.In, true, 0,10, true).onComplete.add(() => {
+          game.add.tween(mh).to({width:mh.width*1.3,height:mh.height*1.3}, 200, Phaser.Easing.Linear.In, true, 0,0, false).onComplete.add(() => {
+
+            mh.destroy()
+            $('#gameContainer').css({'z-index':'99'})
+            //alert(game.world.centerX)
+            var emitter2 = game.add.emitter(game.world.centerX/2, game.world.centerY/2, 50);
+
+            emitter2.makeParticles('coin_1');
+
+            emitter2.minParticleSpeed.setTo(-1500, -1500);
+            emitter2.maxParticleSpeed.setTo(1500, 1500);
+            emitter2.minParticleScale = 0.05;
+            emitter2.maxParticleScale = .4;
+            emitter2.gravity = 10;
+            emitter2.start(true, 2000,null,1000);
+
+
+            // 红包粒子
+            var emitter3 = game.add.emitter(game.world.centerX/2, game.world.centerY/2, 50);
+            emitter3.makeParticles('redpacket');
+            emitter3.minParticleSpeed.setTo(-1500, -1500);
+            emitter3.maxParticleSpeed.setTo(1500, 1500);
+            emitter3.minParticleScale = 0.05;
+            emitter3.maxParticleScale = .4;
+            emitter3.gravity = 10;
+            emitter3.start(true, 2000,null,1000);
+
+            setTimeout(function(){
+              setTimeout(function(){
+                emitter2.destroy()
+                emitter3.destroy();
+              },1000)
+              //gameStart()
+              game.time.events.repeat(Phaser.Timer.SECOND *.2, 30000, createOne, this);
+              setTimeout(function(){
+                _this2.state.start('State4');
+              },30000);
+            },2000)
+          })
+        })
+
+        function createOne(){
+            var sp=game.add.sprite(game.width*addressX[xNum],0, 'readpacket',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
+            that.setSize(sp,game.height*.1,false);
+            xNum++;
+            if(xNum>5){
+              xNum=0
+            }
+            sp.anchor.set(.5);
+
+            game.add.tween(sp).to({y:game.height*1.2}, 2000, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(() => {
+              sp.destroy()
+            })
+            sp.inputEnabled = true
+            sp.events.onInputDown.add(function() {
+              score++;
+              $('#score').text(score)
+              sp.inputEnabled = false
+              sp.destroy()
+            })
+
+            var sp_1=game.add.sprite(game.width*addressX[xNum+1],0, 'coin_1',game.rnd.integerInRange(0,3));//game.rnd.integerInRange(game.width * 0.1, game.width * 0.82)
+            that.setSize(sp_1,game.height*.08,false);
+            
+            sp_1.anchor.set(.5);
+
+            game.add.tween(sp_1).to({y:game.height*1.2}, 2000, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(() => {
+              sp_1.destroy()
+            })
+            sp_1.inputEnabled = true
+            sp_1.events.onInputDown.add(function() {
+              score++;
+              $('#score').text(score)
+              sp_1.inputEnabled = false
+              sp_1.destroy()
+            })
+        }
         console.log('create');
     }
 
