@@ -440,7 +440,7 @@ var State1 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-        that.state.start('State3');return;
+        //that.state.start('State3');return;
         setTimeout(function(){
             that.state.start('State2');
         },2000);
