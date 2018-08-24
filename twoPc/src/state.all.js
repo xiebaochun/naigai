@@ -396,7 +396,7 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.image('logo', base + 'top_logo.png');
         this.load.image('bg', base + 'secne_1_bg.png');
         this.load.image('bg', base + 'secne_1_1.png');
-
+        
         this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
         this.load.onFileComplete.add(function (progess) {
@@ -422,7 +422,7 @@ var State1 = Object.assign({}, BaseState, {
         var that = this;
 
         setTimeout(function(){
-            that.state.start('State2');
+            //that.state.start('State2');
         },2000);
 
         var jd = 0;
