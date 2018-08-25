@@ -373,8 +373,28 @@ function init() {
 	star.className = 'light_point';
 	star.src = './assets/light_point.png';
 	var object = new THREE.CSS3DObject( star );
+	object.position.x = 500;
+	object.position.y = 90;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
+
+	var star = document.createElement('img');
+	star.className = 'light_point';
+	star.src = './assets/light_point.png';
+	var object = new THREE.CSS3DObject( star );
+	object.position.x = -500;
+	object.position.y = 50;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
+
+	var star = document.createElement('img');
+	star.className = 'light_point';
+	star.src = './assets/light_point.png';
+	var object = new THREE.CSS3DObject( star );
 	object.position.x = 400;
-	object.position.y = -250;
+	object.position.y = -50;
 	object.position.z =  10;
 	object.lookAt( vector );
 	scene.add( object );
@@ -383,27 +403,7 @@ function init() {
 	star.className = 'light_point';
 	star.src = './assets/light_point.png';
 	var object = new THREE.CSS3DObject( star );
-	object.position.x = -400;
-	object.position.y = -200;
-	object.position.z =  10;
-	object.lookAt( vector );
-	scene.add( object );
-
-	var star = document.createElement('img');
-	star.className = 'light_point';
-	star.src = './assets/light_point.png';
-	var object = new THREE.CSS3DObject( star );
-	object.position.x = 400;
-	object.position.y = -150;
-	object.position.z =  10;
-	object.lookAt( vector );
-	scene.add( object );
-
-	var star = document.createElement('img');
-	star.className = 'light_point';
-	star.src = './assets/light_point.png';
-	var object = new THREE.CSS3DObject( star );
-	object.position.x = 200;
+	object.position.x = -200;
 	object.position.y = -50;
 	object.position.z =  10;
 	object.lookAt( vector );
