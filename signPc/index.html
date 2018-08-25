@@ -117,8 +117,14 @@ button:active {
 	width: 2000px;
 	animation: flash_02 1s infinite alternate;
 }
+.small_stars{
+	display: block;
+	width: 1500px;
+	animation: flash_02 1.2s infinite alternate;
+}
 .yinhe{
-	width: 4000px;
+	width: 5500px;
+	height: 1500px;
 	animation: flash 6s infinite alternate;
 }
 .naigai{
@@ -303,7 +309,7 @@ var table = [
 	"Yb", "Ytterbium", "#173.054", 17, 9,
 
 ];
-var L = 800,H = 800,K=2,y_=100;
+var L = 1200,H = 800,K=2,y_=100;
 
 var camera, scene, renderer;
 var controls;
@@ -319,7 +325,7 @@ function init() {
 
 	camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
 	camera.position.z = 1500;
-	camera.position.y = 200;
+	camera.position.y = 500;
 	var cameraV = new THREE.Vector3();
 	cameraV.x=0;
 	cameraV.y=1000;
@@ -337,7 +343,7 @@ function init() {
 	bg.src = './assets/bg.png';
 	var object = new THREE.CSS3DObject( bg );
 	object.position.x = 0;
-	object.position.y = 0;
+	object.position.y = -300;
 	object.position.z =  -1000;
 	object.lookAt( vector );
 	scene.add( object );
@@ -349,6 +355,17 @@ function init() {
 	var star_bg = new THREE.CSS3DObject( bg );
 	star_bg.position.x = 0;
 	star_bg.position.y = 0;
+	star_bg.position.z = 0;
+	star_bg.lookAt( vector );
+	scene.add( star_bg );
+
+	// 群星
+	var bg = document.createElement('img');
+	bg.className = 'small_stars';
+	bg.src = './assets/small_stars.png';
+	var star_bg = new THREE.CSS3DObject( bg );
+	star_bg.position.x = 0;
+	star_bg.position.y = -100;
 	star_bg.position.z = 0;
 	star_bg.lookAt( vector );
 	scene.add( star_bg );
@@ -370,7 +387,7 @@ function init() {
 	star.className = 'star_left';
 	star.src = './assets/star_left.png';
 	var object = new THREE.CSS3DObject( star );
-	object.position.x = -1200;
+	object.position.x = -1400;
 	object.position.y = 250;
 	object.position.z =  10;
 	object.lookAt( vector );
@@ -380,7 +397,7 @@ function init() {
 	star.className = 'star_left star_left_shadow';
 	star.src = './assets/star.png';
 	var object = new THREE.CSS3DObject( star );
-	object.position.x = -1180;
+	object.position.x = -1380;
 	object.position.y = 250;
 	object.position.z =  10;
 	object.lookAt( vector );
@@ -392,7 +409,7 @@ function init() {
 	bg.src = './assets/circle.png';
 	var object = new THREE.CSS3DObject( bg );
 	object.position.x = 0;
-	object.position.y = -300;
+	object.position.y = -600;
 	object.position.z =  -800;
 	object.lookAt( vector );
 	scene.add( object );
@@ -413,7 +430,7 @@ function init() {
 		object.position.x = x || 0;
 		object.position.y = y || 0;
 		object.position.z =  z || 0;
-		object.lookAt( vector );
+		//object.lookAt( vector );
 		scene.add( object );
 		return object;
 	}
@@ -430,13 +447,14 @@ function init() {
 					setTimeout(function(){
 						centerObj('main-light fadeIn','main_light.png',350,0,-50,100);
 						setTimeout(function(){
-							//centerObj('main-flash','main_flash.png',200,0,20,150);
+							centerObj('naidi-light star_left_shadow','naidi_light.png',200,50,120,150);
+
 						},2000);
 					},2000);
 				},2000);
 			},2000);
 		},1000);
-		
+		centerObj('main-text fadeIn','main_text.png',800,0,-200,160);
 		
 		
 		
