@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .tips{
+      position: fixed;
+      left: 50%;
+      top:50%;
+      transform: translate(-50%,-50%);
+      z-index: 99;
+      width: 300px;
+      height: 200px;
+      background: rgba(0,0,0,.8);
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+  <script>
+        //window.scoketIp='111.230.11.47:5125' 
+        window.scoketIp = '127.0.0.1:5000'
+  </script>
+</head>
+<body>
+  
+
+
+  <div id="app">
+<!--     <input type="hidden" id='nickname' value="admin">
+    <input type="hidden" id="nickid" value="admin">
+    <input type="hidden" id="nickpic" value="http://ofvbasfrz.bkt.clouddn.com/qpmoveone/image/dd.png"> -->
+<!--     <input placeholder="强制增加的数值" v-model="addMaxNum"/>
+    <button @click='addMax'>强制增加</button> -->
+    <!-- <input placeholder="请输入设置进度条最大值" v-model="userProgress"/>
+    <button @click='setProgress'>设置最大进度值</button> -->
+<!--     <input placeholder="请输入设置进度条最大值" v-model="userProgress"/>
+    <button @click='setProgress'>设置最大进度值</button> -->
+
+    <!-- <p>活动开始前请先设置以下参数</p>
+    <p>初始值：</p>
+    <p>进度条最大值：20000</p>
+    <p>达标条件：60</p>
+    <p>手机端游戏时间：60S</p>
+    <p>棉花下落速度：2000毫秒</p>
+    <br>
+    
+    
+    <br>
+    <br>
+    <input placeholder="请输入设置金币达标数" v-model="setdb"/>
+    <button @click='setMoney'>设置金币达标数</button>
+
+    <br>
+    <br>
+    <input placeholder="请输入设置游戏时间" v-model="gameTime"/>
+    <button @click='setTime'>设置游戏时间</button>
+
+    <br>
+    <br>
+    <input placeholder="请输入设置棉花下落时间" v-model="objMove"/>
+    <button @click='setMove'>设置棉花下落时间</button>(单位：毫秒)
+    <br>
+    <br>
+    <br>
+    <br> -->
+    <!-- <button @click='addPoint'>增加分数</button> -->
+    <button @click='doStart' style="font-size:32px;color:#999;">开始</button>
+<!--     <button @click='clearMax'>清空</button>
+    <button @click='endStart'>结束</button> -->
+    <button @click='reload' style="font-size:32px;color:#999;">reload</button>
+    <br>
+    <br>
+    <!-- <input placeholder="强制增加的数值" v-model="addMaxNum"/>
+    <button @click='addMax'>强制增加</button>
+    <br>
+    <br> -->
+
+
+    <hr>
+
+    <div style="display: none;">
+      <!-- <p>当前参数：</p>
+      <p>当前参与人数:{{newData.total}}</p>
+      <p>进度条最大值：{{newData.progress}}</p> -->
+      <!-- <p>达标条件：{{newData.down_money}}</p>
+      <p>手机端游戏时间：{{newData.down_time}}秒</p>
+      <p>棉花下落速度：{{newData.down_per_time}}毫秒</p> -->
+    </div>
+    <div  class="tips" id="tips" v-show="tipShow">
+      <p style="position: absolute;left: 50%;top:50%;transform:translate(-50%,-50%);font-size:30px;color:#fff;padding:0;margin:0;">{{textMessage}}</p>
+    </div>
+  </div>
+  
+
+
+  <script src="https://cdn.bootcss.com/socket.io/2.0.4/socket.io.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.17.1/axios.min.js"></script>
+  <script src="./polyfill.min.js"></script>
+  <script src="./vue.min.js"></script>
+  <script src="./app.js?a=100"></script>
+</body>
+</html>
