@@ -127,7 +127,12 @@ button:active {
 .star{width: 120px;animation: upAndDown 3s infinite alternate;}
 .star_left{width: 150px;}
 .star_left_shadow{animation: flashUp 1s infinite alternate;}
-
+.hide{
+	opacity: 0;
+}
+.fadeIn{
+	animation: flash 2s;
+}
 
 
 .center-light{
@@ -191,6 +196,9 @@ button:active {
 		top: -20px;
 	}
 }
+
+.loader{display: block;position: fixed;left:0;top:0;width:100%;height:100%;z-index: 99999;background-color: #000;text-align: center;line-height: 100vh;}
+.loader span{color: #fff;font-size: 16px;}
 </style>
 </head>
 <body>
@@ -203,7 +211,8 @@ button:active {
 		<button id="helix">螺旋</button>
 		<button id="grid">网格</button>
 	</div>
-
+	<div class="loader" id="loader"><span id="loader-txt"></span></div>
+<script src="js/jquery.min.js" ></script>
 <script src="js/three.min.js" ></script>
 <script src="js/tween.min.js" ></script>
 <script src="js/TrackballControls.js" ></script>
@@ -390,10 +399,10 @@ function init() {
 
 	// 添加奶盖
 	//底部大锥形
-	centerObj('center-light','center_light.png',700);
-	centerObj('naidi-large','naidi_large.png',600);
-	var naidi_small = centerObj('naidi-small','naidi_small.png',260,33,-10,100);
-	centerObj('main-light','main_light.png',350,0,-50,100);
+	// centerObj('center-light','center_light.png',700);
+	// centerObj('naidi-large','naidi_large.png',600);
+	// var naidi_small = centerObj('naidi-small','naidi_small.png',260,33,-10,100);
+	// centerObj('main-light','main_light.png',350,0,-50,100);
 	//centerObj('main-flash','main_flash.png',200,0,20,150);
 	function centerObj(className, file, width,x,y,z){
 		var bg = document.createElement('img');
@@ -407,6 +416,78 @@ function init() {
 		object.lookAt( vector );
 		scene.add( object );
 		return object;
+	}
+
+	function start(){
+		// 添加奶盖
+		//底部大锥形
+		setTimeout(function(){
+			centerObj('center-light fadeIn','center_light.png',700);
+			setTimeout(function(){
+				centerObj('naidi-large fadeIn','naidi_large.png',600);
+				setTimeout(function(){
+					var naidi_small = centerObj('naidi-small fadeIn','naidi_small.png',260,33,-10,100);
+					setTimeout(function(){
+						centerObj('main-light fadeIn','main_light.png',350,0,-50,100);
+						setTimeout(function(){
+							//centerObj('main-flash','main_flash.png',200,0,20,150);
+						},2000);
+					},2000);
+				},2000);
+			},2000);
+		},1000);
+		
+		
+		
+		
+	}
+
+	var baseUrl = './assets/';
+	var images = [
+		'bg.png',
+		'bg_01.png',
+		'bg_02.png',
+		'center_light.png',
+		'circle.png',
+		'main_light.png',
+		'main_text.png',
+		'main.png',
+		'middle_stars.png',
+		'naidi_large.png',
+		'naidi_small.png',
+		'star_01.png',
+		'star_03.png',
+		'star_left.png',
+		'star.png'
+	];
+
+
+	var loadedCount = 0;
+	var _assets = [];
+	var loadProgressText = '';
+	loadImage(images);
+	function loadImage(images){
+		for(var index in images){
+			var img = new Image();
+			img.src = baseUrl + images[index];
+			img.addEventListener('load',function(){
+				loadedCount ++;
+				//console.log(this);
+				loaderUpdate(loadedCount);
+			});
+			_assets.push(img);
+		}	
+	}
+	function loaderUpdate(count){
+		loadProgressText = ((parseFloat(loadedCount)/_assets.length)*100).toFixed(0) + '%';
+		$('#loader-txt').text(loadProgressText);
+		console.log(loadProgressText );
+		if(_assets.length == loadedCount){
+			$('#loader').fadeOut(2000);
+			setTimeout(function(){
+				start();
+			},2000);
+		}
 	}
 
 	// table
@@ -589,6 +670,7 @@ function transform( targets, duration ) {
 		.start();
 
 }
+
 
 
 
