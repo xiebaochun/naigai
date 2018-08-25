@@ -126,12 +126,27 @@ button:active {
 }
 .star{width: 120px;animation: upAndDown 3s infinite alternate;}
 .star_left{width: 150px;}
-.star_left_shadow{animation: flashUp 3s infinite alternate;}
+.star_left_shadow{animation: flashUp 1s infinite alternate;}
+
+
 
 .center-light{
 	animation: flash_02 3s infinite alternate;
 }
-.main-light{}
+.main-light{animation: largeAndSmall 1s infinite alternate;}
+
+@keyframes largeAndSmall{
+	0%{
+		/*opacity: 0;*/
+		/*transform: scale(1);*/
+		width: 350px;
+	}
+	100%{
+		/*opacity: 1;*/
+		/*transform: scale(2);*/
+		width: 400px;
+	}
+}
 @keyframes flashUp{
 	0%{
 		opacity: .5;
