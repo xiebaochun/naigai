@@ -140,7 +140,7 @@ button:active {
 	animation: flash 2s;
 }
 
-
+.light_point{width: 100px;animation: flash_02 1.2s infinite alternate;}
 .center-light{
 	animation: flash_02 3s infinite alternate;
 }
@@ -150,12 +150,12 @@ button:active {
 	0%{
 		/*opacity: 0;*/
 		/*transform: scale(1);*/
-		width: 350px;
+		width: 400px;
 	}
 	100%{
 		/*opacity: 1;*/
 		/*transform: scale(2);*/
-		width: 400px;
+		width: 500px;
 	}
 }
 @keyframes flashUp{
@@ -309,7 +309,7 @@ var table = [
 	"Yb", "Ytterbium", "#173.054", 17, 9,
 
 ];
-var L = 1200,H = 800,K=2,y_=100;
+var L = 1200,H = 800,K=2,y_=150;
 
 var camera, scene, renderer;
 var controls;
@@ -328,7 +328,7 @@ function init() {
 	camera.position.y = 500;
 	var cameraV = new THREE.Vector3();
 	cameraV.x=0;
-	cameraV.y=1000;
+	cameraV.y=0;
 	cameraV.z=3000;
 	camera.lookAt(cameraV);
 	scene = new THREE.Scene();
@@ -360,15 +360,54 @@ function init() {
 	scene.add( star_bg );
 
 	// 群星
-	var bg = document.createElement('img');
-	bg.className = 'small_stars';
-	bg.src = './assets/small_stars.png';
-	var star_bg = new THREE.CSS3DObject( bg );
-	star_bg.position.x = 0;
-	star_bg.position.y = -100;
-	star_bg.position.z = 0;
-	star_bg.lookAt( vector );
-	scene.add( star_bg );
+	// var bg = document.createElement('img');
+	// bg.className = 'small_stars';
+	// bg.src = './assets/small_stars.png';
+	// var star_bg = new THREE.CSS3DObject( bg );
+	// star_bg.position.x = 0;
+	// star_bg.position.y = -100;
+	// star_bg.position.z = 0;
+	// star_bg.lookAt( vector );
+	// scene.add( star_bg );
+	var star = document.createElement('img');
+	star.className = 'light_point';
+	star.src = './assets/light_point.png';
+	var object = new THREE.CSS3DObject( star );
+	object.position.x = 400;
+	object.position.y = -250;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
+
+	var star = document.createElement('img');
+	star.className = 'light_point';
+	star.src = './assets/light_point.png';
+	var object = new THREE.CSS3DObject( star );
+	object.position.x = -400;
+	object.position.y = -200;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
+
+	var star = document.createElement('img');
+	star.className = 'light_point';
+	star.src = './assets/light_point.png';
+	var object = new THREE.CSS3DObject( star );
+	object.position.x = 400;
+	object.position.y = -150;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
+
+	var star = document.createElement('img');
+	star.className = 'light_point';
+	star.src = './assets/light_point.png';
+	var object = new THREE.CSS3DObject( star );
+	object.position.x = 200;
+	object.position.y = -50;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
 
 
 	// 添加星星
@@ -409,7 +448,7 @@ function init() {
 	bg.src = './assets/circle.png';
 	var object = new THREE.CSS3DObject( bg );
 	object.position.x = 0;
-	object.position.y = -600;
+	object.position.y = -400;
 	object.position.z =  -800;
 	object.lookAt( vector );
 	scene.add( object );
@@ -428,7 +467,7 @@ function init() {
 		bg.src = './assets/' + file;
 		var object = new THREE.CSS3DObject( bg );
 		object.position.x = x || 0;
-		object.position.y = y || 0;
+		object.position.y = y || 150;
 		object.position.z =  z || 0;
 		//object.lookAt( vector );
 		scene.add( object );
@@ -439,22 +478,22 @@ function init() {
 		// 添加奶盖
 		//底部大锥形
 		setTimeout(function(){
-			centerObj('center-light fadeIn','center_light.png',700);
+			centerObj('center-light fadeIn','center_light.png',800,0,100);
 			setTimeout(function(){
-				centerObj('naidi-large fadeIn','naidi_large.png',600);
+				centerObj('naidi-large fadeIn','naidi_large.png',700);
 				setTimeout(function(){
-					var naidi_small = centerObj('naidi-small fadeIn','naidi_small.png',260,33,-10,100);
+					var naidi_small = centerObj('naidi-small fadeIn','naidi_small.png',300,38,130,100);
 					setTimeout(function(){
-						centerObj('main-light fadeIn','main_light.png',350,0,-50,100);
+						centerObj('main-light fadeIn','main_light.png',400,0,160,100);
 						setTimeout(function(){
-							centerObj('naidi-light star_left_shadow','naidi_light.png',200,50,120,150);
+							centerObj('naidi-light star_left_shadow','naidi_light.png',200,50,350,150);
 
 						},2000);
 					},2000);
 				},2000);
 			},2000);
 		},1000);
-		centerObj('main-text fadeIn','main_text.png',800,0,-200,160);
+		centerObj('main-text fadeIn','main_text.png',800,0,-90,160);
 		
 		
 		
@@ -476,7 +515,9 @@ function init() {
 		'star_01.png',
 		'star_03.png',
 		'star_left.png',
-		'star.png'
+		'star.png',
+		'naidi_light.png',
+		'light_point.png'
 	];
 
 
