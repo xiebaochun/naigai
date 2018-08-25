@@ -110,21 +110,72 @@ button:active {
 .bg{
 	display: block;
 	width: 8000px;
-	
+	animation: flash 5s infinite alternate;
 }
 .bg_02{
 	display: block;
 	width: 2000px;
-
+	animation: flash_02 3s infinite alternate;
 }
 .yinhe{
 	width: 4000px;
-	
+	animation: flash 6s infinite alternate;
 }
 .naigai{
 	width: 600px;
 }
-.star{width: 150px;}
+.star{width: 120px;animation: upAndDown 3s infinite alternate;}
+.star_left{width: 150px;}
+.star_left_shadow{animation: flashUp 3s infinite alternate;}
+
+.center-light{
+	animation: flash_02 3s infinite alternate;
+}
+.main-light{}
+@keyframes flashUp{
+	0%{
+		opacity: .5;
+		/*transform: scale3d(1,1,1);*/
+	}
+	100%{
+		opacity: 1;
+		/*transform: scale3d(2,2,2);*/
+	}
+}
+@keyframes flashUp{
+	0%{
+		opacity: .5;
+		/*transform: scale3d(1,1,1);*/
+	}
+	100%{
+		opacity: 1;
+		/*transform: scale3d(2,2,2);*/
+	}
+}
+@keyframes flash{
+	0%{
+		opacity: .5;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+@keyframes flash_02{
+	0%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+@keyframes upAndDown{
+	0%{
+		top: 20px;
+	}
+	100%{
+		top: -20px;
+	}
+}
 </style>
 </head>
 <body>
@@ -267,6 +318,7 @@ function init() {
 	object.lookAt( vector );
 	scene.add( object );
 
+	// 群星
 	var bg = document.createElement('img');
 	bg.className = 'bg_02';
 	bg.src = './assets/bg_02.png';
@@ -283,7 +335,28 @@ function init() {
 	star.className = 'star';
 	star.src = './assets/star_03.png';
 	var object = new THREE.CSS3DObject( star );
-	object.position.x = -1000;
+	object.position.x = 1200;
+	object.position.y = 250;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
+
+	//左边的星星
+	var star = document.createElement('img');
+	star.className = 'star_left';
+	star.src = './assets/star_left.png';
+	var object = new THREE.CSS3DObject( star );
+	object.position.x = -1200;
+	object.position.y = 250;
+	object.position.z =  10;
+	object.lookAt( vector );
+	scene.add( object );
+	//左边的星星-光晕
+	var star = document.createElement('img');
+	star.className = 'star_left star_left_shadow';
+	star.src = './assets/star.png';
+	var object = new THREE.CSS3DObject( star );
+	object.position.x = -1180;
 	object.position.y = 250;
 	object.position.z =  10;
 	object.lookAt( vector );
@@ -301,15 +374,25 @@ function init() {
 	scene.add( object );
 
 	// 添加奶盖
-	var bg = document.createElement('img');
-	bg.className = 'naigai';
-	bg.src = './assets/main.png';
-	var object = new THREE.CSS3DObject( bg );
-	object.position.x = 0;
-	object.position.y = 0;
-	object.position.z =  0;
-	object.lookAt( vector );
-	scene.add( object );
+	//底部大锥形
+	centerObj('center-light','center_light.png',700);
+	centerObj('naidi-large','naidi_large.png',600);
+	var naidi_small = centerObj('naidi-small','naidi_small.png',260,33,-10,100);
+	centerObj('main-light','main_light.png',350,0,-50,100);
+	//centerObj('main-flash','main_flash.png',200,0,20,150);
+	function centerObj(className, file, width,x,y,z){
+		var bg = document.createElement('img');
+		bg.className = className;
+		bg.style.width = width + 'px';
+		bg.src = './assets/' + file;
+		var object = new THREE.CSS3DObject( bg );
+		object.position.x = x || 0;
+		object.position.y = y || 0;
+		object.position.z =  z || 0;
+		object.lookAt( vector );
+		scene.add( object );
+		return object;
+	}
 
 	// table
 
@@ -423,23 +506,34 @@ function init() {
 	//transform( targets.table, 5000 );
 	transform( targets.helix, 20 );
 	//
+	setTimeout(function(){
+		setInterval(function(){
+			var temp = targets.helix;
+			targets.helix = [];
+			for ( var i = 0, l = temp.length; i < l; i ++ ) {
+
+				var phi = temp[i].phi + 0.001;
+
+				var object = new THREE.Object3D();
+
+				object.position.x = L * Math.sin( phi );
+				object.position.y = - ( i * K ) + y_;
+				object.position.z = H * Math.cos( phi );
+				object.phi = phi;
+				vector.x = 0;//object.position.x * 2;
+				vector.y = 1000;//object.position.y;
+				vector.z = 3000;//object.position.z * 2;
+
+				object.lookAt( vector );
+
+				targets.helix.push( object );
+			}
+			transform( targets.helix, 5);
+		},1000/60);
+	},100);
 
 	window.addEventListener( 'resize', onWindowResize, false );
 	
-}
-
-function initLines() {
-	for ( var i = 0; i < table.length; i += 5 ) {
-		var element = document.createElement( 'div' );
-		element.className = 'line';
-		element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
-		var object = new THREE.CSS3DObject( element );
-		object.position.x = Math.random() * 4000 - 2000;
-		object.position.y = Math.random() * 4000 - 2000;
-		object.position.z = Math.random() * 4000 - 2000;
-		lines.push(object);
-		scene.add( object );
-	}
 }
 
 function transform( targets, duration ) {
@@ -495,31 +589,6 @@ function onWindowResize() {
 }
 
 function animate() {
-	setTimeout(function(){
-		setInterval(function(){
-			var temp = targets.helix;
-			targets.helix = [];
-			for ( var i = 0, l = temp.length; i < l; i ++ ) {
-
-				var phi = temp[i].phi + 0.001;
-
-				var object = new THREE.Object3D();
-
-				object.position.x = L * Math.sin( phi );
-				object.position.y = - ( i * K ) + y_;
-				object.position.z = H * Math.cos( phi );
-				object.phi = phi;
-				vector.x = 0;//object.position.x * 2;
-				vector.y = 1000;//object.position.y;
-				vector.z = 3000;//object.position.z * 2;
-
-				object.lookAt( vector );
-
-				targets.helix.push( object );
-			}
-			transform( targets.helix, 5);
-		},1000/60);
-	},100);
 	requestAnimationFrame( animate );
 	
 	TWEEN.update();
