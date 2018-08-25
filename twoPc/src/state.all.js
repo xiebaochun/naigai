@@ -443,9 +443,9 @@ var State1 = Object.assign({}, BaseState, {
     create: function create() {
         var that = this;
         //that.state.start('State4');return;
-        setTimeout(function(){
-            that.state.start('State2');
-        },2000);
+        // setTimeout(function(){
+        //     that.state.start('State2');
+        // },2000);
 
         var jd = 0;
         var runHow = false;
@@ -461,10 +461,7 @@ var State1 = Object.assign({}, BaseState, {
         function initSocket() {
             var openid = document.getElementById('nickid').value;
 
-            window.socketInstant = io.connect("ws://" + window.scoketIp + "?openid=" + openid, //"ws://192.168.0.26:5125?openid=" + openid,120.76.45.115:5125
-            {
-                path: "/"
-            });
+            window.socketInstant = io.connect("ws://" + window.scoketIp);
 
             window.socketInstant.on('error', function (error) {
                 window.location.reload();
@@ -474,51 +471,24 @@ var State1 = Object.assign({}, BaseState, {
             });
 
             window.socketInstant.on("connect", function () {
-                doLogin();
-                window.socketInstant.emit("c_get_all_stand", function (data) {});
+                //window.socketInstant.emit("c_get_all_stand", function (data) {});
             });
-        }
-
-        function doLogin() {
-            var openid = document.getElementById('nickid').value;
-            window.socketInstant.emit("c_login", {
-                openId: document.getElementById('nickid').value, //document.getElementById('nickid').value
-                nickname: document.getElementById('nickname').value,
-                headimg: document.getElementById('nickpic').value
-            });
-        }
-
-        
+        }        
         watchSocket();
 
         function watchSocket() {
-            window.socketInstant.on("s_start", function (data) {
+            window.socketInstant.on("start", function (data) {
                 //console.log("s_start");
                 //console.log(data);
-                $('.page1').hide();
-                $('.page2').show();
-                jdFun();
-            });
+                //$('.page1').hide();
+                //$('.page2').show();
+                that.state.start('State2');
+                //jdFun();
 
-            
-            window.socketInstant.on("s_login", function (data) {
-                console.log("s_login");
-                console.log(data);
             });
-        }
-
-        function setProgress(num) {
-            var that = this;
-            window.socketInstant.emit("c_progress", {
-                progress: num * 50
-            });
-        }
-
-        function addPoint() {
-            var openid = document.getElementById('nickid').value;
-            window.socketInstant.emit("c_add", {
-                openId: document.getElementById('nickid').value,
-                points: 1
+            window.socketInstant.on("reload", function(data) {
+                console.log('reload')
+                window.location.reload();
             });
         }
     }
@@ -527,24 +497,24 @@ var State1 = Object.assign({}, BaseState, {
 var State2 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('State2');
-        $('.page').hide();
-        $('.page2').show();
+        $('.page1').fadeOut(1000);
+        $('.page2').fadeIn(3000);
     },
     preload: function preload() {},
     create: function create() {
         var that = this;
         var i = 0;
-        var k = 0.2;
+        var k = 0.02;
         var timer = setInterval( function(){
             i += k;
             if(i>30&& i<50){
-                k = .4;
+                k = .04;
             }else if(i>=50 && i< 70){
-                k = .2;
+                k = .02;
             }else if(i>=70 && i<80){
-                k = .1;
+                k = .01;
             }else if(i>80){
-                k = 1;
+                k = .5;
             }
             $('.page2 p').css({ 'width': i + '%' });
             $('.page2 .run').css({ 'left': i + '%' }); 
@@ -585,6 +555,9 @@ var State3 = Object.assign({}, BaseState, {
         //logo.anchor.set(0,0);
         var group = game.add.group()
         var mh = this.asw(w / 2, h *.5, 'fudai', 10);
+
+        //吉祥物
+        var obj = this.asw(w *.6, h *.65, 'DSRD_01', 10);
         // obj.anchor.set(0,0);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
@@ -596,7 +569,7 @@ var State3 = Object.assign({}, BaseState, {
             mh.destroy()
             $('#gameContainer').css({'z-index':'99'})
             //alert(game.world.centerX)
-            var emitter2 = game.add.emitter(game.world.centerX/2, game.world.centerY/2, 50);
+            var emitter2 = game.add.emitter(game.world.centerX/(window.devicePixelRatio||1), game.world.centerY/(window.devicePixelRatio||1), 50);
 
             emitter2.makeParticles('icon_01');
 
@@ -609,7 +582,7 @@ var State3 = Object.assign({}, BaseState, {
 
 
             // 红包粒子
-            var emitter3 = game.add.emitter(game.world.centerX/2, game.world.centerY/2, 50);
+            var emitter3 = game.add.emitter(game.world.centerX/(window.devicePixelRatio||1), game.world.centerY/(window.devicePixelRatio||1), 50);
             emitter3.makeParticles('redpacket');
             emitter3.minParticleSpeed.setTo(-1500, -1500);
             emitter3.maxParticleSpeed.setTo(1500, 1500);
@@ -686,7 +659,17 @@ var State4 = Object.assign({}, BaseState, {
 
 
         console.log(Object);
-        var obj = this.asw(w / 2, h / 2, 'scene_4_1', 20);
+        var obj = this.asw(w / 2, h /2, 'scene_4_1', 20);
+
+        var text = game.add.text(w/2, h *.45, '能力多\n大红包\n8800元');
+            text.anchor.set(0.5);
+            text.align = 'center';
+            text.wordWrapWidth = 30;
+            //  Font style
+            text.font = 'Arial Black';
+            text.fontSize = 18;
+            text.fontWeight = 'bold';
+            text.fill = '#a6000a';
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)

@@ -459,10 +459,7 @@ var State1 = Object.assign({}, BaseState, {
         function initSocket() {
             var openid = document.getElementById('nickid').value;
 
-            window.socketInstant = io.connect("ws://" + window.scoketIp + "?openid=" + openid, //"ws://192.168.0.26:5125?openid=" + openid,120.76.45.115:5125
-            {
-                path: "/"
-            });
+            window.socketInstant = io.connect("ws://" + window.scoketIp);
 
             window.socketInstant.on('error', function (error) {
                 window.location.reload();
@@ -472,30 +469,15 @@ var State1 = Object.assign({}, BaseState, {
             });
 
             window.socketInstant.on("connect", function () {
-                doLogin();
-                window.socketInstant.emit("c_get_all_stand", function (data) {});
+                watchSocket();
             });
         }
-
-        function doLogin() {
-            var openid = document.getElementById('nickid').value;
-            window.socketInstant.emit("c_login", {
-                openId: document.getElementById('nickid').value, //document.getElementById('nickid').value
-                nickname: document.getElementById('nickname').value,
-                headimg: document.getElementById('nickpic').value
-            });
-        }
-
         
-        watchSocket();
+        
 
         function watchSocket() {
-            window.socketInstant.on("s_start", function (data) {
-                //console.log("s_start");
-                //console.log(data);
-                $('.page1').hide();
-                $('.page2').show();
-                jdFun();
+            window.socketInstant.on("start", function (data) {
+                that.state.start('State2');
             });
 
             
@@ -525,24 +507,24 @@ var State1 = Object.assign({}, BaseState, {
 var State2 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('State2');
-        $('.page').hide();
-        $('.page2').show();
+        $('.page').fadeOut(1000);
+        $('.page2').fadeIn(3000);
     },
     preload: function preload() {},
     create: function create() {
         var that = this;
         var i = 0;
-        var k = 0.2;
+        var k = 0.02;
         var timer = setInterval( function(){
             i += k;
             if(i>30&& i<50){
-                k = .4;
+                k = .04;
             }else if(i>=50 && i< 70){
-                k = .2;
+                k = .02;
             }else if(i>=70 && i<80){
-                k = .1;
+                k = .01;
             }else if(i>80){
-                k = 1;
+                k = .1;
             }
             $('.page2 p').css({ 'width': i + '%' });
             $('.page2 .run').css({ 'left': i + '%' }); 

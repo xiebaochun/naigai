@@ -3,17 +3,17 @@
  */
 // 设置图片目录
 
-var socketInstant = io.connect("ws://192.168.2.9:5000");
-console.log(socketInstant,'>>>>>>>>>>>>>>>>>>>');
-socketInstant.on("connect", function() {
-  //that.doLogin();
-  //that.watchSocket();
-  console.log('connected');
-  socketInstant.on("reload", function(data) {
-      console.log('reload')
-      window.location.reload();
-  });
-});
+// var socketInstant = io.connect("ws://192.168.2.9:5000");
+// console.log(socketInstant,'>>>>>>>>>>>>>>>>>>>');
+// socketInstant.on("connect", function() {
+//   //that.doLogin();
+//   //that.watchSocket();
+//   console.log('connected');
+//   socketInstant.on("reload", function(data) {
+//       console.log('reload')
+//       window.location.reload();
+//   });
+// });
 
 
 

@@ -199,7 +199,7 @@ html {
         z-index: -1; }
 
 .page2 {
-  z-index: 5; }
+  z-index: 0;}
   .page2 .box {
     position: absolute;
     left: 50%;
@@ -232,8 +232,8 @@ html {
       padding: 1px; }
       .page2 .box .hp .percent{
         position: absolute;
-        right: 0;
-        top: 0.15rem;
+        right: -.3rem;
+        top: 0.3rem;
       }
       .page2 .box .hp div {
         border-radius: 20px;
@@ -408,12 +408,16 @@ html {
   100% {
     transform: rotate(0deg) scale(1); } }
 .fadeIn {
-  -webkit-animation: fadeIn 1s ease linear;
-  -moz-animation: fadeIn 1s ease linear;
-  -o-animation: fadeIn 1s ease linear;
-  animation: fadeIn 1s ease linear;
+  -webkit-animation: fadeIn 2s ease linear;
+  -moz-animation: fadeIn 2s ease linear;
+  -o-animation: fadeIn 2s ease linear;
+  animation: fadeIn 2s ease linear;
   /*   animation-delay: 1s; */ }
-
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 @keyframes fadeIn {
   0% {
     opacity: 0; }
