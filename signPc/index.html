@@ -140,7 +140,11 @@ button:active {
 	animation: flash 2s;
 }
 
-.light_point{width: 100px;animation: flash_02 1.2s infinite alternate;}
+.light_point{width: 100px;}
+.light_point_01{animation: flash_02 1.2s infinite alternate;}
+.light_point_02{animation: flash_02 1.2s .5s infinite alternate;}
+.light_point_03{animation: flash_02 1.2s 1s infinite alternate;}
+.light_point_04{animation: flash_02 1.2s 1.5s infinite alternate;}
 .center-light{
 	animation: flash_02 3s infinite alternate;
 }
@@ -370,7 +374,7 @@ function init() {
 	// star_bg.lookAt( vector );
 	// scene.add( star_bg );
 	var star = document.createElement('img');
-	star.className = 'light_point';
+	star.className = 'light_point light_point_01';
 	star.src = './assets/light_point.png';
 	var object = new THREE.CSS3DObject( star );
 	object.position.x = 500;
@@ -380,7 +384,7 @@ function init() {
 	scene.add( object );
 
 	var star = document.createElement('img');
-	star.className = 'light_point';
+	star.className = 'light_point light_point_02';
 	star.src = './assets/light_point.png';
 	var object = new THREE.CSS3DObject( star );
 	object.position.x = -500;
@@ -390,7 +394,7 @@ function init() {
 	scene.add( object );
 
 	var star = document.createElement('img');
-	star.className = 'light_point';
+	star.className = 'light_point light_point_03';
 	star.src = './assets/light_point.png';
 	var object = new THREE.CSS3DObject( star );
 	object.position.x = 400;
@@ -400,7 +404,7 @@ function init() {
 	scene.add( object );
 
 	var star = document.createElement('img');
-	star.className = 'light_point';
+	star.className = 'light_point light_point_04';
 	star.src = './assets/light_point.png';
 	var object = new THREE.CSS3DObject( star );
 	object.position.x = -200;
