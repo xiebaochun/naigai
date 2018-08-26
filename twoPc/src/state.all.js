@@ -445,7 +445,7 @@ var State1 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-        that.state.start('State4');return;
+        that.state.start('State5');return;
         setTimeout(function(){
             that.state.start('State2');
         },2000);
@@ -664,29 +664,45 @@ var State4 = Object.assign({}, BaseState, {
 
 
         console.log(Object);
-        var obj = this.asw(w / 2, h /2, 'scene_4_1', 20);
-        // var redpacket_back = this.asw(w/2,h/2,'redpacket_back',20);
-        // var redpacket_middle = this.asw(w/2,h/2,'redpacket_middle',20);
-        // var redpacket_front = this.asw(w/2,h/2,'redpacket_front',20);
+        var obj = this.asw(w / 2, h /2, 'secne_4_4', 50);
+        this.add.tween(obj).to({ width: obj.width * 1.08, height: obj.height * 1.08 }, 400, Phaser.Easing.Linear.In, true, 0, 10000, true);
+        var redpacket_back = this.asw(w/2,h*.64,'redpacket_back',25);
+        var redpacket_middle = this.asw(w/2,h*1.3,'redpacket_middle',20);
+        
 
-        var text = game.add.text(w/2, h *.45, '能力多\n大红包\n8800元');
+        var text = game.add.text(w/2, h *1.16, '能力多\n大红包');
             text.anchor.set(0.5);
             text.align = 'center';
             text.wordWrapWidth = 30;
             //  Font style
             text.font = 'Arial Black';
-            text.fontSize = 18;
+            text.fontSize = 30;
             text.fontWeight = 'bold';
             text.fill = '#a6000a';
+
+        var text_02 = game.add.text(w/2, h *1.35, '8800元');
+            text_02.anchor.set(0.5);
+            text_02.align = 'center';
+            text_02.wordWrapWidth = 30;
+            //  Font style
+            text_02.font = 'Arial Black';
+            text_02.fontSize = 40;
+            text_02.fontWeight = 'bold';
+            text_02.fill = '#a6000a';
+
+        var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',25);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
-        // this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
-        //     _this3.dangling(obj);
+        _this3.add.tween(text_02).to({ y: text_02.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        _this3.add.tween(text).to({ y: text.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        _this3.add.tween(redpacket_middle).to({ y: redpacket_middle.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        // this.add.tween(redpacket_middle).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
+        //     //_this3.dangling(redpacket_middle);
         // });
 
 
-        var obj = this.asw(w *.6, h *.65, 'DSRD_01', 10);
+        var obj = this.asw(w *.65, h *.72, 'DSRD_01', 10);
         console.log('create');
     }
 
@@ -694,6 +710,10 @@ var State4 = Object.assign({}, BaseState, {
 var State5 = Object.assign({}, BaseState, {
     init: function init() {},
     preload: function preload() {},
-    create: function create() {}
+    create: function create() {
+        $('.top-logo').css({left:'4rem'});
+        $('.page').hide();
+        $('.page5').show();
+    }
 
 });

@@ -416,6 +416,9 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.image('sidai', base + 'sidai.png');
         this.load.image('slogen', base + 'slogen.png');
         this.load.image('s0logen_sub', base + 'sologen_sub.png');
+        this.load.image('redpacket_back', base + 'redpacket_back.png');
+        this.load.image('redpacket_middle', base + 'redpacket_middle.png');
+        this.load.image('redpacket_front', base + 'redpacket_front.png');
 
         //this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
@@ -738,13 +741,47 @@ var State4 = Object.assign({}, BaseState, {
 
 
         console.log(Object);
-        var obj = this.asw(w / 2, h *.6, 'caihongbao', 50);
+        //var obj = this.asw(w / 2, h *.6, 'caihongbao', 50);
+
+        var obj = this.asw(w / 2, h /2, 'reward_bg', 50);
+        this.add.tween(obj).to({ width: obj.width * 1.08, height: obj.height * 1.08 }, 400, Phaser.Easing.Linear.In, true, 0, 10000, true);
+        var redpacket_back = this.asw(w/2,h*.64,'redpacket_back',25);
+        var redpacket_middle = this.asw(w/2,h*1.3,'redpacket_middle',20);
+        
+
+        var text = game.add.text(w/2, h *1.16, '能力多\n大红包');
+            text.anchor.set(0.5);
+            text.align = 'center';
+            text.wordWrapWidth = 30;
+            //  Font style
+            text.font = 'Arial Black';
+            text.fontSize = 30;
+            text.fontWeight = 'bold';
+            text.fill = '#a6000a';
+
+        var text_02 = game.add.text(w/2, h *1.35, '8800元');
+            text_02.anchor.set(0.5);
+            text_02.align = 'center';
+            text_02.wordWrapWidth = 30;
+            //  Font style
+            text_02.font = 'Arial Black';
+            text_02.fontSize = 40;
+            text_02.fontWeight = 'bold';
+            text_02.fill = '#a6000a';
+
+        var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',25);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
-        this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
-            _this3.dangling(obj);
-        });
+        _this3.add.tween(text_02).to({ y: text_02.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        _this3.add.tween(text).to({ y: text.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        _this3.add.tween(redpacket_middle).to({ y: redpacket_middle.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        // this.fromLeft(obj, function() {
+        //   console.log('animation ok')
+        // }, 5000)
+        // this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
+        //     _this3.dangling(obj);
+        // });
 
         var DSRD = this.asw(w * .8, h *.7, 'DSRD', 25);
 

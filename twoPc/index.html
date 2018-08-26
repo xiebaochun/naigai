@@ -52,7 +52,7 @@
             bottom:0;
             left: 0;
             width: 100%;
-            z-index:9;
+            z-index:23;
         }
         .middle-light-flash{
             position: absolute;
@@ -114,6 +114,55 @@
             100%{
                 transform: rotateZ(5deg);   
             }
+        }
+        .prize-wrap{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            z-index: 25;
+        }
+        .prize-wrap .prize-no{
+            margin-top: 3.5%;
+            width: 8rem;
+        }
+        .prize-wrap .reward-wrap{
+            margin-top: 2rem;
+        }
+        .prize-wrap .reward-wrap .member{
+            display: inline-block;
+            position: relative;
+
+            margin: 0 .5rem;
+        }
+        .secend-prize .reward-wrap .member{
+            width: 3rem;
+        }
+        .third-prize .reward-wrap .member{
+            width: 2.8rem;margin: 0 .3rem;
+        }
+        .prize-wrap .reward-wrap .member .avator{
+            padding:0;
+            display: block;
+            position: absolute;
+            left: 15%;
+            top: 4%;
+            width: 68%;
+            height: 59%;
+            border: 1px solid #900;
+        }
+        .prize-wrap .reward-wrap .member .name{
+            display: block;
+            position: absolute;
+            left: 0;
+            text-align: center;
+            bottom: 8%;
+            width: 100%;
+            
+            font-size: 14px;
+            color: #fff;
         }
         .loader{display: block;position: fixed;left:0;top:0;width:100%;height:100%;z-index: 99999;background-color: #000;text-align: center;line-height: 100vh;}
         .loader span{color: #fff;font-size: 16px;}
@@ -201,8 +250,9 @@
         </div> -->
     </div>
 
-    <div class="page page4 hide fadeIn">
+    <div class="page page4 hide fadeIn" style="z-index: 7;">
         <div class="box" style="padding-top:4rem;text-align: center;">
+            <img style="position: absolute;left:29%;top:0%; width: 42%;" src="./assets/img2/scene4_middle_bg.png">
             <img style="width: 30%;margin-top:-1rem;" src="./assets/img/secne_04_01.png">
             <!-- <div style="position: absolute;width: 4rem;top:6rem;left:50%;margin-left: -2rem;">
                 <img class="" id="caihongbao" style="" src="./assets/img/caihongbao.png">
@@ -213,6 +263,143 @@
                 </div>
             </div>
             <img style="position: absolute;width: 2rem;left: 5rem;top: 8rem;" style="" src="./assets/img/DSRD_2.png"> -->
+        </div>
+    </div>
+    <div class="page page5 hide fadeIn" style="z-index: 25;">
+        <div class="box" style="padding-top:4rem;text-align: center;">
+            <img style="position: absolute;left:29%;top:0%; width: 42%;" src="./assets/img2/scene5_middle.png">
+            <img style="width: 30%;margin-top:-1rem;" src="./assets/img/secne_04_01.png">
+            <img class="bg-top" src="./assets/img2/bg_top.png">
+            <div class="prize-wrap first-prize hide">
+                <img class="prize-no" src="./assets/img2/no.1.png">
+                <ul class="reward-wrap">
+                    <li class="member" style="width: 4rem;">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member" style="width: 4rem;">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member" style="width: 4rem;">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="prize-wrap secend-prize hide">
+                <img class="prize-no" src="./assets/img2/no.2.png">
+                <ul class="reward-wrap">
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="prize-wrap third-prize">
+                <img class="prize-no" src="./assets/img2/no.3.png">
+                <ul class="reward-wrap">
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                    <li class="member">
+                        <img style="width: 100%;" src="./assets/img2/frame.png">
+                        <img class="avator" src="./assets/img/secne_04_01.png">
+                        <span class="name">xxx某</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="loader" id="loader"><span id="loader-txt"></span></div>
@@ -327,9 +514,9 @@
             console.log(loadProgressText );
             if(_assets.length == loadedCount){
                 $('#loader').fadeOut(2000);
-                setTimeout(function(){
-                    start();
-                },2000);
+                // setTimeout(function(){
+                //     start();
+                // },2000);
             }
         }
     </script>

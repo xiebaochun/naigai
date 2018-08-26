@@ -244,7 +244,10 @@ html {
           height: 100%;
           width: 0%;
           background: #fff;
-          border-radius: 5px; }
+          border-radius: 5px; 
+          background-image: url(../../assets/img/bar_front.png);
+          background-size: 5rem 100%;
+        }
         .page2 .box .hp div .run {
           position: absolute;
           left: 0;
