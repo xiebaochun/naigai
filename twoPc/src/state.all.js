@@ -443,9 +443,9 @@ var State1 = Object.assign({}, BaseState, {
     create: function create() {
         var that = this;
         //that.state.start('State4');return;
-        // setTimeout(function(){
-        //     that.state.start('State2');
-        // },2000);
+        setTimeout(function(){
+            that.state.start('State2');
+        },2000);
 
         var jd = 0;
         var runHow = false;
@@ -497,8 +497,10 @@ var State1 = Object.assign({}, BaseState, {
 var State2 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('State2');
-        $('.page1').fadeOut(1000);
-        $('.page2').fadeIn(3000);
+        $('.top-logo').hide();
+        $('.main').addClass('up');
+        $('#step-1').fadeOut(1000);
+        $('#step-2').fadeIn(3000);
     },
     preload: function preload() {},
     create: function create() {
@@ -516,8 +518,8 @@ var State2 = Object.assign({}, BaseState, {
             }else if(i>80){
                 k = .5;
             }
-            $('.page2 p').css({ 'width': i + '%' });
-            $('.page2 .run').css({ 'left': i + '%' }); 
+            $('.page1 p').css({ 'width': i + '%' });
+            $('.page1 .run').css({ 'left': i + '%' }); 
             if( i>=100 ){
                 clearInterval(timer);
                 that.state.start('State3');

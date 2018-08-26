@@ -20,10 +20,11 @@
     </script>
     <style type="text/css">
         body{position: relative;overflow: hidden;}
-        .top-logo{position: absolute; display: inline-block;width: 3rem;left: 50%;top:1rem;margin-left: -1.5rem;}
+        .top-logo{position: absolute; display: inline-block;width: 4rem;left: 50%;top:1rem;margin-left: -2rem;}
         .ratation-bg{
             display: block;
             width: 100%;
+            opacity: 0.2;
             animation: rotation 5s infinite linear;
         }
         @keyframes rotation{
@@ -34,19 +35,86 @@
                 transform: rotateZ(360deg) scale(3);
             }
         }
-        .bg-middle{
+        .bg-middle-wrap{
             display: block;
             position: absolute;
-            top:0;
-            left: 0;
             
+            top:0;
+            left: 0;    
+            width: 100%;
+            text-align: center;
+        }
+        .bg-middle{
+            width: 70%;
+        }
+        .bg-top{
+            position: fixed;
+            bottom:0;
+            left: 0;
+            width: 100%;
+            z-index:9;
+        }
+        .middle-light-flash{
+            position: absolute;
+            display: block;
+            top: 29%;
+            left: 50%;
+            width: 200px;
+            margin-left: -100px;
+            animation: flash 1s infinite alternate;
+        }
+        .text-light-left{
+            position: absolute;
+            display: block;
+            top: 18%;
+            left: 12%;
+            width: 70px;
+            animation: flash 1s .5s infinite alternate;
+        }
+        .text-light-right-01{
+            position: absolute;
+            display: block;
+            top: 22%;
+            left: 65%;
+            width: 70px;
+            animation: flash 1s 1.5s infinite alternate;   
+        }
+        .text-light-right-02{
+            position: absolute;
+            display: block;
+            top: 55%;
+            left: 81%;
+            width: 70px;
+            animation: flash 1s 2s infinite alternate;   
+        }
+        @keyframes flash{
+            0%{
+                opacity: .3;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        .up{
+            animation: up 1s ease forwards;
+        }
+        @keyframes up{
+            0%{
+                transform: translateY(0);
+            }
+            100%{
+                transform: translateY(-20%);
+            }
         }
     </style>
 </head>
 
 <body style="background: url(./assets/img2/bg_bottom.png)no-repeat;background-size: 100% 100%;">
     <img class="ratation-bg" src="./assets/img2/flash_bg.png">
-    <img class="bg-middle" src="./assets/img2/bg_middle.png">
+    <div class="bg-middle-wrap">
+        <img class="bg-middle" src="./assets/img2/bg_middle.png">
+    </div>
+    <img class="bg-top" src="./assets/img2/bg_top.png">
     <input type="hidden" id='nickname' value="全蛋">
     <input type="hidden" id="nickid" value="cs1">
     <input type="hidden" id="nickpic" value="http://ofvbasfrz.bkt.clouddn.com/qpmoveone/image/dd.png">
@@ -71,8 +139,29 @@
     </div>
     <div class="page page1 hide" id="page1">
         <!-- <img src="./assets/logo.png" alt="" class="logo"> -->
-        <div class="main">
-            <img style="margin-top: 3.5rem;margin-top:30vh;" class="" src="./assets/img2/secne_1_1.png">
+        <div class="main" style="margin-top: 3.5rem;margin-top:20vh;">
+            <div style="position: relative;">
+                <img class="" src="./assets/img2/scene_1_main.png">
+                <img class="middle-light-flash" src="./assets/img2/text_light_01.png">
+                <img class="text-light-left" src="./assets/img2/text_light_left.png">
+                <img class="text-light-right-01" src="./assets/img2/text_light_right_01.png">
+                <img class="text-light-right-02" src="./assets/img2/text_light_right_02.png">
+            </div>
+            <div id="step-1" style="position:absolute;right: 0;bottom:z-index: 10000; text-align:right;">
+                <img style="width: 80%;" src="./assets/img2/scene_1_1_text.png">
+            </div>
+            <div id="step-2" class="box hide" style="text-align: center;">
+                <img style="width: 16rem;" src="./assets/img2/scene_2_text.png"><br>
+                <div class="hp">
+                    <div style="background: url(./assets/img2/bar_back.png) no-repeat center center;background-size: 100% 100%;">
+                        <p></p>
+                        <img src="./assets/img/redpacket.png" alt="" class="run">
+                        <!-- <img src="./assets/img/red_packet.png" alt="" class="runGif"> -->
+                    </div>
+                    <h2 class="percent" style="color:#000;">%</h2>
+                </div>
+                <img style="width: 30%;" src="./assets/img2/loading.png">
+            </div>
         </div>
     </div>
 
