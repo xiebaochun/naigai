@@ -106,6 +106,15 @@
                 transform: translateY(-20%);
             }
         }
+        .sidai{position: absolute; display: inline-block;width: 20rem;left: 30%;top:1rem;margin-left: -2rem;animation: sidai 2s infinite alternate;}
+        @keyframes sidai{
+            0%{
+                transform: rotateZ(-5deg);
+            }
+            100%{
+                transform: rotateZ(5deg);   
+            }
+        }
     </style>
 </head>
 
@@ -126,6 +135,9 @@
 
     <!-- <audio src="./assets/bg.mp3"   id="bgMusic" loop="loop" autoplay="autoplay" preload="auto"></audio> -->
     <img class="top-logo" src="./assets/img/top_logo.png">
+    <img class="sidai" src="./assets/img2/sidai.png">
+    <img class="sidai" style="width: 2rem;left: 78%;top: 30%;" src="./assets/img2/sprite_01.png">
+    <img class="sidai" style="width: 2.5rem;left: 27%;top: 30%;" src="./assets/img2/sprite_02.png">
     <div style="" id="gameContainer" style="z-index: 66;"></div>
     <!-- <img src="./assets/foot_1.png" alt="" class="foot footMove"> -->
     <div class="loading" id="loading">
