@@ -19,12 +19,34 @@
         window.scoketIp='127.0.0.1:5000'  //120.76.45.115:5125//139.129.9.167:5125
     </script>
     <style type="text/css">
-        body{position: relative;}
+        body{position: relative;overflow: hidden;}
         .top-logo{position: absolute; display: inline-block;width: 3rem;left: 50%;top:1rem;margin-left: -1.5rem;}
+        .ratation-bg{
+            display: block;
+            width: 100%;
+            animation: rotation 5s infinite linear;
+        }
+        @keyframes rotation{
+            0%{
+                transform: rotateZ(0deg) scale(3);
+            }
+            100%{
+                transform: rotateZ(360deg) scale(3);
+            }
+        }
+        .bg-middle{
+            display: block;
+            position: absolute;
+            top:0;
+            left: 0;
+            
+        }
     </style>
 </head>
 
-<body style="background: url(./assets/img2/secne_2_bg.png)no-repeat;background-size: 100% 100%;">
+<body style="background: url(./assets/img2/bg_bottom.png)no-repeat;background-size: 100% 100%;">
+    <img class="ratation-bg" src="./assets/img2/flash_bg.png">
+    <img class="bg-middle" src="./assets/img2/bg_middle.png">
     <input type="hidden" id='nickname' value="全蛋">
     <input type="hidden" id="nickid" value="cs1">
     <input type="hidden" id="nickpic" value="http://ofvbasfrz.bkt.clouddn.com/qpmoveone/image/dd.png">
