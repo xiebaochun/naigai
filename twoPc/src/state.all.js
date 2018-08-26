@@ -419,6 +419,9 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.image('secne_4_4', base + 'secne_4_4.png');
         this.load.image('secne4_1', base + 'secne4_1.png');
         this.load.image('secne4_3', base + 'secne4_3.png');
+        this.load.image('redpacket_back', base + 'redpacket_back.png');
+        this.load.image('redpacket_middle', base + 'redpacket_middle.png');
+        this.load.image('redpacket_front', base + 'redpacket_front.png');
         //this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
         this.load.onFileComplete.add(function (progess) {
@@ -442,7 +445,7 @@ var State1 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-        //that.state.start('State4');return;
+        that.state.start('State4');return;
         setTimeout(function(){
             that.state.start('State2');
         },2000);
@@ -662,6 +665,9 @@ var State4 = Object.assign({}, BaseState, {
 
         console.log(Object);
         var obj = this.asw(w / 2, h /2, 'scene_4_1', 20);
+        // var redpacket_back = this.asw(w/2,h/2,'redpacket_back',20);
+        // var redpacket_middle = this.asw(w/2,h/2,'redpacket_middle',20);
+        // var redpacket_front = this.asw(w/2,h/2,'redpacket_front',20);
 
         var text = game.add.text(w/2, h *.45, '能力多\n大红包\n8800元');
             text.anchor.set(0.5);
@@ -675,9 +681,9 @@ var State4 = Object.assign({}, BaseState, {
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
-        this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
-            _this3.dangling(obj);
-        });
+        // this.add.tween(obj).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
+        //     _this3.dangling(obj);
+        // });
 
 
         var obj = this.asw(w *.6, h *.65, 'DSRD_01', 10);

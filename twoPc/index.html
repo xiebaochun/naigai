@@ -115,6 +115,8 @@
                 transform: rotateZ(5deg);   
             }
         }
+        .loader{display: block;position: fixed;left:0;top:0;width:100%;height:100%;z-index: 99999;background-color: #000;text-align: center;line-height: 100vh;}
+        .loader span{color: #fff;font-size: 16px;}
     </style>
 </head>
 
@@ -170,7 +172,7 @@
                         <img src="./assets/img/redpacket.png" alt="" class="run">
                         <!-- <img src="./assets/img/red_packet.png" alt="" class="runGif"> -->
                     </div>
-                    <h2 class="percent" style="color:#000;">%</h2>
+                    <h2 class="percent" style="font-size: 1rem;color:#000;">%</h2>
                 </div>
                 <img style="width: 30%;" src="./assets/img2/loading.png">
             </div>
@@ -213,7 +215,7 @@
             <img style="position: absolute;width: 2rem;left: 5rem;top: 8rem;" style="" src="./assets/img/DSRD_2.png"> -->
         </div>
     </div>
-
+    <div class="loader" id="loader"><span id="loader-txt"></span></div>
     <!-- <div class="messagePage hide ">
         <div class="score">
             <img src="./assets/score.png" alt="">
@@ -267,7 +269,70 @@
 
     <!--主入口  -->
     <script src="./src/app.js"></script>
+    <script type="text/javascript">
+        var baseUrl = './assets/img2/';
+        var images = [
+            'loading.png',
+            'no.1.png',
+            'no.2.png',
+            'no.3.png',
+            'percent.png',
+            'readpacket.png',
+            'realreward_bg.png',
+            'redpacket_back.png',
+            'redpacket_front.png',
+            'redpacket_middle.png',
+            'redpacket.png',
+            'scene_1_1_text.png',
+            'scene_1_main.png',
+            'scene_2_text.png',
+            'scene_4_1.png',
+            'secne_1_1.png',
+            'secne_1_bg.png',
+            'secne_2_bg.png',
+            'secne_3_1.png',
+            'secne_3_2.png',
+            'secne_4_4.png',
+            'sidai.png',
+            'sprite_01.png',
+            'sprite_02.png',
+            'text_light_01.png',
+            'text_light_02.png',
+            'text_light_right_01.png',
+            'text_light_left.png',
+            'text_light_right_02.png',
+            'top_logo.png',
+        ];
 
+
+        var loadedCount = 0;
+        var _assets = [];
+        var loadProgressText = '';
+        loadImage(images);
+        function loadImage(images){
+            for(var index in images){
+                var img = new Image();
+                img.src = baseUrl + images[index];
+                img.addEventListener('load',function(){
+                    loadedCount ++;
+                    //console.log(this);
+                    loaderUpdate(loadedCount);
+                });
+                _assets.push(img);
+            }   
+        }
+        function loaderUpdate(count){
+            loadProgressText = ((parseFloat(loadedCount)/_assets.length)*100).toFixed(0) + '%';
+            $('#loader-txt').text(loadProgressText);
+            console.log(loadProgressText );
+            if(_assets.length == loadedCount){
+                $('#loader').fadeOut(2000);
+                setTimeout(function(){
+                    start();
+                },2000);
+            }
+        }
+    </script>
 </body>
 
 </html>
