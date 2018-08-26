@@ -200,13 +200,24 @@ button:active {
 }
 @keyframes upAndDown{
 	0%{
-		top: 20px;
+		top: 10px;
 	}
 	100%{
-		top: -20px;
+		top: -10px;
 	}
 }
-
+@keyframes upAndDownP{
+	0%{
+		top: 10px;
+		opacity: .5;
+	}
+	100%{
+		top: -10px;
+		opacity: 1;
+	}
+}
+/*.naidi-light{animation: upAndDownP 1s infinite alternate;}*/
+.upAndDown{animation: upAndDown 1s infinite alternate;}
 .loader{display: block;position: fixed;left:0;top:0;width:100%;height:100%;z-index: 99999;background-color: #000;text-align: center;line-height: 100vh;}
 .loader span{color: #fff;font-size: 16px;}
 </style>
@@ -482,15 +493,16 @@ function init() {
 		// 添加奶盖
 		//底部大锥形
 		setTimeout(function(){
-			centerObj('center-light fadeIn','center_light.png',800,0,100);
+			centerObj('center-light fadeIn upAndDown','center_light.png',800,0,100);
 			setTimeout(function(){
-				centerObj('naidi-large fadeIn','naidi_large.png',700);
+				centerObj('naidi-large fadeIn upAndDown','naidi_large.png',700);
+				centerObj('logo fadeIn upAndDown','logo.png',150,0,400);
 				setTimeout(function(){
-					var naidi_small = centerObj('naidi-small fadeIn','naidi_small.png',300,38,130,100);
+					var naidi_small = centerObj('naidi-small fadeIn upAndDown','naidi_small.png',330,42,150,100);
 					setTimeout(function(){
 						centerObj('main-light fadeIn','main_light.png',400,0,160,100);
 						setTimeout(function(){
-							centerObj('naidi-light star_left_shadow','naidi_light.png',200,50,350,150);
+							centerObj('naidi-light star_left_shadow','naidi_light.png',200,45,200,150);
 
 						},2000);
 					},2000);
