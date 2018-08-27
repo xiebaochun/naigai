@@ -468,7 +468,7 @@ var Preloader = Object.assign({}, BaseState, {
     },
     create: function create() {}
 });
-
+window.is_started = 0;
 var State1 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('State1');
@@ -509,18 +509,20 @@ var State1 = Object.assign({}, BaseState, {
             });
 
             window.socketInstant.on("connect", function () {
-                watchSocket();
+                
                 window.socketInstant.emit("getRewardType", function(data) {
                     console.log('发送成功，获取奖品类型');
                 });
             });
         }
-        
+        watchSocket();
         
 
         function watchSocket() {
             window.socketInstant.on("start", function (data) {
-                that.state.start('State2');
+                if(window.is_started == 0){
+                    that.state.start('State2');
+                }
             });
 
             
@@ -555,6 +557,7 @@ var State1 = Object.assign({}, BaseState, {
 var State2 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('State2');
+        window.is_started = 1;
         $('.page').fadeOut(1000);
         $('.page2').fadeIn(3000);
     },

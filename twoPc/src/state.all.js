@@ -464,7 +464,7 @@ var Preloader = Object.assign({}, BaseState, {
     },
     create: function create() {}
 });
-
+window.is_started = 0;
 var State1 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('State1');
@@ -520,7 +520,9 @@ var State1 = Object.assign({}, BaseState, {
                 //$('.page1').hide();
                 //$('.page2').show();
                 //window.actIndex = data.index;
-                that.state.start('State2');
+                if(window.is_started == 0){
+                    that.state.start('State2');
+                }
                 //jdFun();
 
             });
@@ -541,6 +543,7 @@ var State1 = Object.assign({}, BaseState, {
 
 var State2 = Object.assign({}, BaseState, {
     init: function init() {
+        window.is_started = 1;
         console.log('State2');
         $('.top-logo').hide();
         $('.main').addClass('up');
