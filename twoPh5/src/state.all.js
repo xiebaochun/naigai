@@ -422,6 +422,7 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.image('first_prize', base + 'first_prize.png');
         this.load.image('secend_prize', base + 'secend_prize.png');
         this.load.image('third_prize', base + 'third_prize.png');
+        this.load.image('thinkJoin', base + 'thinkJoin.png');
         //this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
         this.load.onFileComplete.add(function (progess) {

@@ -528,7 +528,7 @@ var State2 = Object.assign({}, BaseState, {
                 that.state.start('State3');
                 timer = null;
             }
-        }, 1000/600 );
+        }, 1000/1000 );
     }
 });
 
