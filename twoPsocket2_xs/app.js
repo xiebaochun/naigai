@@ -5,6 +5,8 @@ var mainApp = new Vue({
   data: function() {
     return {
       lastRes: {},
+      reward_type: 0,
+      index: 1,
       userProgress:'',
       addMaxNum:10,
       setdb:'',
@@ -21,6 +23,11 @@ var mainApp = new Vue({
       tipShow:false
     };
   },
+  watch: {
+    reward_type: function(val){
+      this.socketInstant.emit("setRewardType", {reward_type: val});
+    }
+  },
   mounted: function() {
     this.initSocket();
   },
@@ -29,7 +36,7 @@ var mainApp = new Vue({
       this.socketInstant.emit("reload", {});
     },
     doStart: function() {
-      this.socketInstant.emit("start", {});
+      this.socketInstant.emit("start", {index: this.index});
     },
     watchSocket: function() {
       var that = this;

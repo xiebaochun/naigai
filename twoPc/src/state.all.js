@@ -2,7 +2,7 @@
 
 window.maxData = null;
 window.socketInstant = null;
-var actId = "redpack";
+var actId = "syt";
 var baseUrl = window.IP;
 window.Api = {
     doAjax: function doAjax(parms, url, cb) {
@@ -21,9 +21,34 @@ window.Api = {
             });
         });
     },
-
+    showWinList: function(index, cb){
+        actId = index || actId;
+        var timestamp = Date.parse(new Date());
+        var name = $("#nickname").val();
+        var openId = $("#nickid").val();
+        var img = $("#nickpic").val();
+        var sig = 'actId=' + actId + '&timestamp=' + timestamp;
+        sig = md5(sig).toUpperCase();
+        $.ajax({
+            url: baseUrl + 'redPack/showWinList',
+            type: "POST",
+            dataType: "json",
+            data: {
+                timestamp: timestamp,
+                actId: actId,
+                sig: sig
+            },
+            success: function success(data) {
+                console.log(data,'获奖名单');
+                cb&& cb(data);
+            },
+            error: function error(err) {
+                //alert('网络错误，请稍后尝试');
+            }
+        });
+    },
     // 用户信息初始化接口
-    saveUser: function saveUser() {
+    saveUser: function saveUser(cb) {
         return new Promise(function (resolve, reject) {
             var timestamp = Date.parse(new Date());
             var name = $("#nickname").val();
@@ -44,6 +69,7 @@ window.Api = {
                     sig: sig
                 },
                 success: function success(data) {
+                    cb&& cb(data);
                     resolve(data);
                 },
                 error: function error(err) {
@@ -74,7 +100,8 @@ window.Api = {
                     img: img,
                     actId: actId,
                     sig: sig,
-                    isTrue: isTrue
+                    actId: 'syt_01',
+
                 },
                 success: function success(data) {
                     resolve(data);
@@ -94,7 +121,7 @@ window.Api = {
     },
 
     //派送红包接口
-    recordReadPack: function recordReadPack() {
+    recordReadPack: function recordReadPack(cb) {
         return new Promise(function (resolve, reject) {
             var timestamp = Date.parse(new Date());
             var name = $("#nickname").val();
@@ -116,23 +143,24 @@ window.Api = {
                     sig: sig
                 },
                 success: function success(data) {
+                    cb&&cb(data);
                     window.oneClick = true;
-                    $('.tips').hide();
-                    if (data.code == '200') {
-                        $('#moneyNum').html(data.money);
-                        $(".page").hide();
-                        $('.hbPage').show();
-                    } else if (data.code == '502') {
-                        $('#moneyNum').css({ 'font-size': '.6rem' });
-                        $('#moneyNum').html('红包被抢光啦');
-                        $(".page").hide();
-                        $('.hbPage').show();
-                    } else {
-                        $('#moneyNum').css({ 'font-size': '.6rem' });
-                        $('#moneyNum').html(data.msg);
-                        $(".page").hide();
-                        $('.hbPage').show();
-                    }
+                    // $('.tips').hide();
+                    // if (data.code == '200') {
+                    //     $('#moneyNum').html(data.money);
+                    //     $(".page").hide();
+                    //     $('.hbPage').show();
+                    // } else if (data.code == '502') {
+                    //     $('#moneyNum').css({ 'font-size': '.6rem' });
+                    //     $('#moneyNum').html('红包被抢光啦');
+                    //     $(".page").hide();
+                    //     $('.hbPage').show();
+                    // } else {
+                    //     $('#moneyNum').css({ 'font-size': '.6rem' });
+                    //     $('#moneyNum').html(data.msg);
+                    //     $(".page").hide();
+                    //     $('.hbPage').show();
+                    // }
                 },
                 error: function error(err) {
                     //reject(err);
@@ -456,7 +484,10 @@ var State1 = Object.assign({}, BaseState, {
         //logo.anchor.set(0, 0);
         window.firstShow = true;
 
-        window.Api.saveUser();
+        window.Api.saveUser(function(ret){
+            console.log(ret,'返回的用户信息');
+            window.user_info = ret.user;
+        });
 
         //初始化信息?
         initSocket();
@@ -475,6 +506,9 @@ var State1 = Object.assign({}, BaseState, {
 
             window.socketInstant.on("connect", function () {
                 //window.socketInstant.emit("c_get_all_stand", function (data) {});
+                window.socketInstant.emit("getRewardType", function(data) {
+                    console.log('发送成功，获取奖品类型');
+                });
             });
         }        
         watchSocket();
@@ -485,6 +519,7 @@ var State1 = Object.assign({}, BaseState, {
                 //console.log(data);
                 //$('.page1').hide();
                 //$('.page2').show();
+                window.actIndex = data.index;
                 that.state.start('State2');
                 //jdFun();
 
@@ -493,6 +528,13 @@ var State1 = Object.assign({}, BaseState, {
                 console.log('reload')
                 window.location.reload();
             });
+
+            window.socketInstant.on("rewardType", function(data) {
+                console.log(data,'接受奖品类型成功')
+                window.reward_type = data.reward_type;
+            });
+
+
         }
     }
 });
@@ -604,7 +646,11 @@ var State3 = Object.assign({}, BaseState, {
               //gameStart()
               game.time.events.repeat(Phaser.Timer.SECOND *.05, 30000, createOne, this);
               setTimeout(function(){
-                _this2.state.start('State4');
+                if(window.reward_type == 0){
+                    _this2.state.start('State4');
+                }else{
+                    _this2.state.start('State5');
+                }
               },30000);
             },2000)
           })
@@ -662,41 +708,50 @@ var State4 = Object.assign({}, BaseState, {
         $('.page').hide();
         $('.page4').show();
 
+        // window.api.recordReadPack(function(ret){
+        //     if(user_info.isTrue == 2){
+        //         alert('你已领取过红包');
+        //     }else if(user_info.isTrue == 0){
+        //         showResult(ret.money);
+        // });
+        //showResult(8800);
+        //function showResult(money) {
+            var obj = this.asw(w / 2, h /2, 'secne_4_4', 50);
+            this.add.tween(obj).to({ width: obj.width * 1.08, height: obj.height * 1.08 }, 400, Phaser.Easing.Linear.In, true, 0, 10000, true);
+            var redpacket_back = this.asw(w/2,h*.64,'redpacket_back',25);
+            var redpacket_middle = this.asw(w/2,h*1.3,'redpacket_middle',20);
+            
 
-        console.log(Object);
-        var obj = this.asw(w / 2, h /2, 'secne_4_4', 50);
-        this.add.tween(obj).to({ width: obj.width * 1.08, height: obj.height * 1.08 }, 400, Phaser.Easing.Linear.In, true, 0, 10000, true);
-        var redpacket_back = this.asw(w/2,h*.64,'redpacket_back',25);
-        var redpacket_middle = this.asw(w/2,h*1.3,'redpacket_middle',20);
+            var text = game.add.text(w/2, h *1.16, '能力多\n大红包');
+                text.anchor.set(0.5);
+                text.align = 'center';
+                text.wordWrapWidth = 30;
+                //  Font style
+                text.font = 'Arial Black';
+                text.fontSize = 30;
+                text.fontWeight = 'bold';
+                text.fill = '#a6000a';
+
+            var text_02 = game.add.text(w/2, h *1.35, 8800 + '元');
+                text_02.anchor.set(0.5);
+                text_02.align = 'center';
+                text_02.wordWrapWidth = 30;
+                //  Font style
+                text_02.font = 'Arial Black';
+                text_02.fontSize = 40;
+                text_02.fontWeight = 'bold';
+                text_02.fill = '#a6000a';
+
+            var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',25);
+            // this.fromLeft(obj, function() {
+            //   console.log('animation ok')
+            // }, 5000)
+            _this3.add.tween(text_02).to({ y: text_02.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+            _this3.add.tween(text).to({ y: text.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+            _this3.add.tween(redpacket_middle).to({ y: redpacket_middle.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        //}
         
-
-        var text = game.add.text(w/2, h *1.16, '能力多\n大红包');
-            text.anchor.set(0.5);
-            text.align = 'center';
-            text.wordWrapWidth = 30;
-            //  Font style
-            text.font = 'Arial Black';
-            text.fontSize = 30;
-            text.fontWeight = 'bold';
-            text.fill = '#a6000a';
-
-        var text_02 = game.add.text(w/2, h *1.35, '8800元');
-            text_02.anchor.set(0.5);
-            text_02.align = 'center';
-            text_02.wordWrapWidth = 30;
-            //  Font style
-            text_02.font = 'Arial Black';
-            text_02.fontSize = 40;
-            text_02.fontWeight = 'bold';
-            text_02.fill = '#a6000a';
-
-        var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',25);
-        // this.fromLeft(obj, function() {
-        //   console.log('animation ok')
-        // }, 5000)
-        _this3.add.tween(text_02).to({ y: text_02.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
-        _this3.add.tween(text).to({ y: text.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
-        _this3.add.tween(redpacket_middle).to({ y: redpacket_middle.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        
         // this.add.tween(redpacket_middle).from({ alpha: 0 }, 500, Phaser.Easing.Linear.In, true, 0, 0, false).onComplete.add(function () {
         //     //_this3.dangling(redpacket_middle);
         // });
@@ -712,6 +767,58 @@ var State5 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         $('.top-logo').css({left:'4rem'});
+        $('.prize-wrap').hide();
+        if(window.reward_type == 1){
+            window.Api.showWinList('syt_01',function(ret){
+                if(ret.winList){
+                    var html = '';
+                    ret.winList.forEach(function(item){
+                        var _temp = '<li class="member" style="width: 4rem;">\
+                            <img style="width: 100%;" src="./assets/img2/frame.png">\
+                            <img class="avator" src="'+item.img+'">\
+                            <span class="name">'+item.name+'</span>\
+                        </li>';
+                        html += _temp;
+                    });
+                    $('.first-prize').show();
+                    $('.first-prize .reward-wrap').html(html);
+                }
+            });
+        }else if(window.reward_type == 2){
+            window.Api.showWinList('syt_02',function(ret){
+                if(ret.winList){
+                    var html = '';
+                    ret.winList.forEach(function(item){
+                        var _temp = '<li class="member">\
+                            <img style="width: 100%;" src="./assets/img2/frame.png">\
+                            <img class="avator" src="'+item.img+'">\
+                            <span class="name">'+item.name+'</span>\
+                        </li>';
+                        html += _temp;
+                    });
+                    $('.secend-prize').show();
+                    $('.secend-prize .reward-wrap').html(html);
+                }
+            });
+        }else if(window.reward_type == 3){
+            window.Api.showWinList('syt_03',function(ret){
+                if(ret.winList){
+                    var html = '';
+                    ret.winList.forEach(function(item){
+                        var _temp = '<li class="member">\
+                            <img style="width: 100%;" src="./assets/img2/frame.png">\
+                            <img class="avator" src="'+item.img+'">\
+                            <span class="name">'+item.name+'</span>\
+                        </li>';
+                        html += _temp;
+                    });
+                    $('.third-prize').show();
+                    $('.third-prize .reward-wrap').html(html);
+                }
+            });
+        }
+        
+        
         $('.page').hide();
         $('.page5').show();
     }

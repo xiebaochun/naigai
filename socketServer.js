@@ -8,7 +8,7 @@ app.get('/socket/client/index.html',function (req,res) {
 //在线用户
 var onlineUser={};
 var onlineCount=0;
-
+var reward_type = 0;
 io.on('connection',function (socket) {
     console.log('新用户登录');
 
@@ -22,6 +22,15 @@ io.on('connection',function (socket) {
         console.log('start');
         
     })
+    socket.on('setRewardType',function (obj) {
+        console.log('setRewardType');
+        reward_type = obj.reward_type;
+    })
+
+    socket.on('getRewardType',function (obj) {
+        io.emit('rewardType',{reward_type: reward_type});
+    })
+
     // //监听新用户加入
     // socket.on('login',function (obj) {
     //     socket.name=obj.userid;

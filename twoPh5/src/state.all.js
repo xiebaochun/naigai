@@ -2,7 +2,7 @@
 
 window.maxData = null;
 window.socketInstant = null;
-var actId = "redpack";
+var actId = "syt";
 var baseUrl = window.IP;
 window.Api = {
     doAjax: function doAjax(parms, url, cb) {
@@ -23,8 +23,8 @@ window.Api = {
     },
 
     // 用户信息初始化接口
-    saveUser: function saveUser() {
-        return new Promise(function (resolve, reject) {
+    saveUser: function(cb) {
+        
             var timestamp = Date.parse(new Date());
             var name = $("#nickname").val();
             var openId = $("#nickid").val();
@@ -44,18 +44,48 @@ window.Api = {
                     sig: sig
                 },
                 success: function success(data) {
-                    resolve(data);
+                    cb&&cb(data);
+                    //resolve(data);
                 },
                 error: function error(err) {
                     //alert('网络错误，请稍后尝试');
                 }
             });
-        });
+        
     },
-
+    swLottery: function(reward_type, cb){
+        //return new Promise(function (resolve, reject) {
+            actId = 'syt_0' + reward_type;
+            var timestamp = Date.parse(new Date());
+            var name = $("#nickname").val();
+            var openId = $("#nickid").val();
+            var img = $("#nickpic").val();
+            var sig = 'actId=' + actId + '&timestamp=' + timestamp;
+            sig = md5(sig).toUpperCase();
+            $('.tips').show();
+            $.ajax({
+                url: baseUrl + 'redPack/swLottery',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    timestamp: timestamp,
+                    name: name,
+                    openId: openId,
+                    img: img,
+                    actId: actId,
+                    sig: sig
+                },
+                success: function success(data) {
+                    cb(data)
+                },
+                error: function error(err) {
+                    //reject(err);
+                }
+            });
+    },
     //更新达标用户信息接口
-    saveRecordUser: function saveRecordUser(isTrue, cb) {
-        return new Promise(function (resolve, reject) {
+    saveRecordUser: function(isTrue, cb) {
+        //return new Promise(function (resolve, reject) {
             var timestamp = Date.parse(new Date());
             var name = $("#nickname").val();
             var openId = $("#nickid").val();
@@ -77,9 +107,9 @@ window.Api = {
                     isTrue: isTrue
                 },
                 success: function success(data) {
-                    resolve(data);
-                    cb && cb();
-                    $('.tips').hide();
+                    //resolve(data);
+                    cb && cb(data);
+                    //$('.tips').hide();
                     // if(data.data.isTrue == 0){
                     //     cb && cb()
                     // }else{
@@ -90,12 +120,12 @@ window.Api = {
                     //reject(err);
                 }
             });
-        });
+        //});
     },
 
     //派送红包接口
-    recordReadPack: function recordReadPack() {
-        return new Promise(function (resolve, reject) {
+    recordReadPack: function(cb) {
+        //return new Promise(function (resolve, reject) {
             var timestamp = Date.parse(new Date());
             var name = $("#nickname").val();
             var openId = $("#nickid").val();
@@ -116,29 +146,30 @@ window.Api = {
                     sig: sig
                 },
                 success: function success(data) {
-                    window.oneClick = true;
-                    $('.tips').hide();
-                    if (data.code == '200') {
-                        $('#moneyNum').html(data.money);
-                        $(".page").hide();
-                        $('.hbPage').show();
-                    } else if (data.code == '502') {
-                        $('#moneyNum').css({ 'font-size': '.6rem' });
-                        $('#moneyNum').html('红包被抢光啦');
-                        $(".page").hide();
-                        $('.hbPage').show();
-                    } else {
-                        $('#moneyNum').css({ 'font-size': '.6rem' });
-                        $('#moneyNum').html(data.msg);
-                        $(".page").hide();
-                        $('.hbPage').show();
-                    }
+                    cb(data)
+                    // window.oneClick = true;
+                    // $('.tips').hide();
+                    // if (data.code == '200') {
+                    //     $('#moneyNum').html(data.money);
+                    //     $(".page").hide();
+                    //     $('.hbPage').show();
+                    // } else if (data.code == '502') {
+                    //     $('#moneyNum').css({ 'font-size': '.6rem' });
+                    //     $('#moneyNum').html('红包被抢光啦');
+                    //     $(".page").hide();
+                    //     $('.hbPage').show();
+                    // } else {
+                    //     $('#moneyNum').css({ 'font-size': '.6rem' });
+                    //     $('#moneyNum').html(data.msg);
+                    //     $(".page").hide();
+                    //     $('.hbPage').show();
+                    // }
                 },
                 error: function error(err) {
                     //reject(err);
                 }
             });
-        });
+        //});
     }
 
 };
@@ -422,7 +453,7 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.image('first_prize', base + 'first_prize.png');
         this.load.image('secend_prize', base + 'secend_prize.png');
         this.load.image('third_prize', base + 'third_prize.png');
-        this.load.image('thinkJoin', base + 'thinkJoin.png');
+        this.load.image('thankJoin', base + 'thankJoin.png');
         //this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
         this.load.onFileComplete.add(function (progess) {
@@ -457,7 +488,10 @@ var State1 = Object.assign({}, BaseState, {
         //logo.anchor.set(0, 0);
         window.firstShow = true;
 
-        window.Api.saveUser();
+        window.Api.saveUser(function(ret){
+            console.log(ret,'用户信息');
+            window.user_info = ret;
+        });
 
         //初始化信息?
         initSocket();
@@ -476,6 +510,9 @@ var State1 = Object.assign({}, BaseState, {
 
             window.socketInstant.on("connect", function () {
                 watchSocket();
+                window.socketInstant.emit("getRewardType", function(data) {
+                    console.log('发送成功，获取奖品类型');
+                });
             });
         }
         
@@ -491,22 +528,27 @@ var State1 = Object.assign({}, BaseState, {
                 console.log("s_login");
                 console.log(data);
             });
-        }
 
-        function setProgress(num) {
-            var that = this;
-            window.socketInstant.emit("c_progress", {
-                progress: num * 50
+            window.socketInstant.on("rewardType", function(data) {
+                console.log(data,'接受奖品类型成功')
+                window.reward_type = data.reward_type;
             });
         }
 
-        function addPoint() {
-            var openid = document.getElementById('nickid').value;
-            window.socketInstant.emit("c_add", {
-                openId: document.getElementById('nickid').value,
-                points: 1
-            });
-        }
+        // function setProgress(num) {
+        //     var that = this;
+        //     window.socketInstant.emit("c_progress", {
+        //         progress: num * 50
+        //     });
+        // }
+
+        // function addPoint() {
+        //     var openid = document.getElementById('nickid').value;
+        //     window.socketInstant.emit("c_add", {
+        //         openId: document.getElementById('nickid').value,
+        //         points: 1
+        //     });
+        // }
     }
 });
 
@@ -535,8 +577,8 @@ var State2 = Object.assign({}, BaseState, {
             $('.page2 p').css({ 'width': i + '%' });
             $('.page2 .run').css({ 'left': i + '%' }); 
             if( i>=100 ){
-                clearInterval(timer);
                 that.state.start('State3');
+                clearInterval(timer);
                 timer = null;
             }
         }, 1000/600 );
@@ -677,7 +719,11 @@ var State3 = Object.assign({}, BaseState, {
               //gameStart()
               game.time.events.repeat(Phaser.Timer.SECOND *.2, 30000, createOne, this);
               setTimeout(function(){
-                _this2.state.start('State4');
+                if(window.reward_type == 0){
+                    _this2.state.start('State4');
+                }else{
+                    _this2.state.start('State5'); 
+                }
               },30000);
             },1500)
           })
@@ -743,42 +789,57 @@ var State4 = Object.assign({}, BaseState, {
         $('.page4').show();
 
 
-        console.log(Object);
+        //console.log(Object);
+        window.Api.recordReadPack(function(ret){
+            if(ret.code == 200){
+                if(user_info.isTrue == 2){
+                    alert('你已领取过红包');
+                }else if(user_info.isTrue == 0){
+                    showResult(ret.money);
+                }
+            }else{
+                alert(ret.msg || '抽奖失败！');
+            }
+
+        });
+        function showResult(money){
+            var redpacket_back = this.asw(w/2,h*.72,'redpacket_back',70);
+            var redpacket_middle = this.asw(w/2,h*.85,'redpacket_middle',55);
+            
+
+            var text = game.add.text(w/2, h *.8, '能力多\n大红包');
+                text.anchor.set(0.5);
+                text.align = 'center';
+                text.wordWrapWidth = 30;
+                //  Font style
+                text.font = 'Arial Black';
+                text.fontSize = 50;
+                text.fontWeight = 'bold';
+                text.fill = '#a6000a';
+
+            var text_02 = game.add.text(w/2, h *.9, money + '元');
+                text_02.anchor.set(0.5);
+                text_02.align = 'center';
+                text_02.wordWrapWidth = 30;
+                //  Font style
+                text_02.font = 'Arial Black';
+                text_02.fontSize = 60;
+                text_02.fontWeight = 'bold';
+                text_02.fill = '#a6000a';
+
+            var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',70);
+            // this.fromLeft(obj, function() {
+            //   console.log('animation ok')
+            // }, 5000)
+            _this3.add.tween(text_02).to({ y: text_02.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+            _this3.add.tween(text).to({ y: text.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+            _this3.add.tween(redpacket_middle).to({ y: redpacket_middle.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
+        }
         //var obj = this.asw(w / 2, h *.6, 'caihongbao', 50);
 
         //var obj = this.asw(w / 2, h /2, 'reward_bg', 50);
         //this.add.tween(obj).to({ width: obj.width * 1.08, height: obj.height * 1.08 }, 400, Phaser.Easing.Linear.In, true, 0, 10000, true);
-        var redpacket_back = this.asw(w/2,h*.72,'redpacket_back',70);
-        var redpacket_middle = this.asw(w/2,h*.85,'redpacket_middle',55);
         
-
-        var text = game.add.text(w/2, h *.8, '能力多\n大红包');
-            text.anchor.set(0.5);
-            text.align = 'center';
-            text.wordWrapWidth = 30;
-            //  Font style
-            text.font = 'Arial Black';
-            text.fontSize = 50;
-            text.fontWeight = 'bold';
-            text.fill = '#a6000a';
-
-        var text_02 = game.add.text(w/2, h *.9, '8800元');
-            text_02.anchor.set(0.5);
-            text_02.align = 'center';
-            text_02.wordWrapWidth = 30;
-            //  Font style
-            text_02.font = 'Arial Black';
-            text_02.fontSize = 60;
-            text_02.fontWeight = 'bold';
-            text_02.fill = '#a6000a';
-
-        var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',70);
-        // this.fromLeft(obj, function() {
-        //   console.log('animation ok')
-        // }, 5000)
-        _this3.add.tween(text_02).to({ y: text_02.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
-        _this3.add.tween(text).to({ y: text.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
-        _this3.add.tween(redpacket_middle).to({ y: redpacket_middle.y - 250 }, 3000, Phaser.Easing.Linear.In, true, 0, 0, false);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
@@ -798,15 +859,26 @@ var State5 = Object.assign({}, BaseState, {
     init: function init() {},
     preload: function preload() {},
     create: function create() {
+        window.Api.swLottery(reward_type, function(ret){
+            if(ret.code == 200){
+                if(ret.isWin == 1){
+                    if(reward_type == 1){
+                        var reward = this.asw(w * .5, h *.6, 'first_prize', 60);
+                    }else if(reward_type == 2){
+                        var reward = this.asw(w * .5, h *.6, 'secend_prize', 60);
+                    }else if(reward_type == 3){
+                        var reward = this.asw(w * .5, h *.6, 'third_prize', 60);
+                    }
+                }else{
+                    var reward = this.asw(w * .5, h *.4, 'thankJoin', 60);
+                }
+            }else{
+                alert(ret.msg || '抽奖失败！');
+            }
+        });
         $('.page').hide();
         $('.page5').show();
-
-        //var reward = this.asw(w * .5, h *.6, 'first_prize', 60);
-        //var reward = this.asw(w * .5, h *.6, 'secend_prize', 60);
-        var reward = this.asw(w * .5, h *.6, 'third_prize', 60);
-
         var DSRD = this.asw(w * .85, h *.75, 'DSRD', 25);
-
         DSRD.anchor.set(.5);
 
     }

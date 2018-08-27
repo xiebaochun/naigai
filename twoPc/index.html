@@ -15,7 +15,7 @@
     <script>
         var vConsole = new VConsole();
         window.baseURI = 'http://47.99.38.45:3033/twoPc/assets/img2/';
-        window.IP=''
+        window.IP='http://120.76.45.115:9029/MiService/api/';
         window.scoketIp='127.0.0.1:5000'  //120.76.45.115:5125//139.129.9.167:5125
     </script>
     <style type="text/css">
@@ -445,6 +445,7 @@
     <!--$框架  -->
     <script src="./src/vendor/jquery.min.js"></script>
     <!-- 初始化js -->
+    <script src="./src/vendor/md5.min.js"></script>
     <script src="./src/webinit.js"></script>
     <!--工具类  -->
     <script src="./src/utils.js"></script>
@@ -457,7 +458,7 @@
     <!--主入口  -->
     <script src="./src/app.js"></script>
     <script type="text/javascript">
-        var baseUrl = './assets/img2/';
+        var _baseUrl = './assets/img2/';
         var images = [
             'loading.png',
             'no.1.png',
@@ -499,7 +500,7 @@
         function loadImage(images){
             for(var index in images){
                 var img = new Image();
-                img.src = baseUrl + images[index];
+                img.src = _baseUrl + images[index];
                 img.addEventListener('load',function(){
                     loadedCount ++;
                     //console.log(this);
