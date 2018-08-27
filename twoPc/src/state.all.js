@@ -527,7 +527,7 @@ var State1 = Object.assign({}, BaseState, {
 
             });
             window.socketInstant.on("reload", function(data) {
-                console.log('reload')
+                console.log('reload');
                 window.location.reload();
             });
 

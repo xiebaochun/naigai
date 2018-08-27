@@ -525,7 +525,10 @@ var State1 = Object.assign({}, BaseState, {
                 }
             });
 
-            
+            window.socketInstant.on("reload", function(data) {
+                console.log('reload');
+                window.location.reload();
+            });
             window.socketInstant.on("s_login", function (data) {
                 console.log("s_login");
                 console.log(data);
