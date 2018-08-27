@@ -23,6 +23,17 @@
         .top-logo{position: absolute; display: inline-block;width: 2.6rem;left: 50%;top:2rem;margin-left: -1.3rem;}
         .loader{display: block;position: fixed;left:0;top:0;width:100%;height:100%;z-index: 99999;background-color: #000;text-align: center;line-height: 100vh;}
         .loader span{color: #fff;font-size: 16px;}
+        .scale{
+            animation: scale 1s infinite alternate;
+        }
+        @keyframes scale{
+            0%{
+                transform: scale(.8);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 
@@ -78,9 +89,10 @@
         </div>
     </div>
 
-    <div class="page page4 hide fadeIn">
+    <div class="page page4 hide fadeIn" style="z-index: 1;">
         <div class="box" style="padding-top:4rem;text-align: center;">
-            <img style="width: 100%;margin-top:-1rem;" src="./assets/img/secne_04_01.png">
+
+            <img class="scale" style="width: 100%;margin-top:-1rem;" src="./assets/img/secne_04_01.png">
             <!-- <div style="position: absolute;width: 4rem;top:6rem;left:50%;margin-left: -2rem;">
                 <img class="" id="caihongbao" style="" src="./assets/img/caihongbao.png">
                 <div style="position: absolute;top:0.2rem;width: 100%;left:0rem;text-align: center;font-size: .5rem;color:#a5010a;">
@@ -90,6 +102,13 @@
                 </div>
             </div> -->
             <!-- <img style="position: absolute;width: 2rem;left: 5rem;top: 8rem;" style="" src="./assets/img/DSRD_2.png"> -->
+        </div>
+    </div>
+    <img class="page4 hide" style="position: absolute;bottom:0;left:0;width:100%;z-index: 100;" src="./assets/img/bg_front_01.png">
+    <img class="page4 hide" style="position: absolute;bottom:0;left:0;width:100%;z-index: 100;" src="./assets/img/bg_front_02.png">
+    <div class="page page5 hide fadeIn" style="z-index: 1;background-image: url(./assets/img/realreward_bg.png);background-size:100% 100%;">
+        <div class="box" style="padding-top:4rem;text-align: center;">
+            <img class="" style="width: 100%;margin-top:-2.5rem;" src="./assets/img/secne_04_01.png">
         </div>
     </div>
     <div class="loader" id="loader"><span id="loader-txt"></span></div>
@@ -189,9 +208,9 @@
             console.log(loadProgressText );
             if(_assets.length == loadedCount){
                 $('#loader').fadeOut(2000);
-                setTimeout(function(){
-                    start();
-                },2000);
+                // setTimeout(function(){
+                //     start();
+                // },2000);
             }
         }
     </script>

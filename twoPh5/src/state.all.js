@@ -419,7 +419,9 @@ var Preloader = Object.assign({}, BaseState, {
         this.load.image('redpacket_back', base + 'redpacket_back.png');
         this.load.image('redpacket_middle', base + 'redpacket_middle.png');
         this.load.image('redpacket_front', base + 'redpacket_front.png');
-
+        this.load.image('first_prize', base + 'first_prize.png');
+        this.load.image('secend_prize', base + 'secend_prize.png');
+        this.load.image('third_prize', base + 'third_prize.png');
         //this.load.atlasXML('spObj', baseURI + 'sp.png', baseURI + 'sp.xml');
 
         this.load.onFileComplete.add(function (progess) {
@@ -443,7 +445,7 @@ var State1 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-        //that.state.start('State3');return;
+        //that.state.start('State5');return;
         setTimeout(function(){
             that.state.start('State2');
         },2000);
@@ -743,33 +745,33 @@ var State4 = Object.assign({}, BaseState, {
         console.log(Object);
         //var obj = this.asw(w / 2, h *.6, 'caihongbao', 50);
 
-        var obj = this.asw(w / 2, h /2, 'reward_bg', 50);
-        this.add.tween(obj).to({ width: obj.width * 1.08, height: obj.height * 1.08 }, 400, Phaser.Easing.Linear.In, true, 0, 10000, true);
-        var redpacket_back = this.asw(w/2,h*.64,'redpacket_back',25);
-        var redpacket_middle = this.asw(w/2,h*1.3,'redpacket_middle',20);
+        //var obj = this.asw(w / 2, h /2, 'reward_bg', 50);
+        //this.add.tween(obj).to({ width: obj.width * 1.08, height: obj.height * 1.08 }, 400, Phaser.Easing.Linear.In, true, 0, 10000, true);
+        var redpacket_back = this.asw(w/2,h*.72,'redpacket_back',70);
+        var redpacket_middle = this.asw(w/2,h*.85,'redpacket_middle',55);
         
 
-        var text = game.add.text(w/2, h *1.16, '能力多\n大红包');
+        var text = game.add.text(w/2, h *.8, '能力多\n大红包');
             text.anchor.set(0.5);
             text.align = 'center';
             text.wordWrapWidth = 30;
             //  Font style
             text.font = 'Arial Black';
-            text.fontSize = 30;
+            text.fontSize = 50;
             text.fontWeight = 'bold';
             text.fill = '#a6000a';
 
-        var text_02 = game.add.text(w/2, h *1.35, '8800元');
+        var text_02 = game.add.text(w/2, h *.9, '8800元');
             text_02.anchor.set(0.5);
             text_02.align = 'center';
             text_02.wordWrapWidth = 30;
             //  Font style
             text_02.font = 'Arial Black';
-            text_02.fontSize = 40;
+            text_02.fontSize = 60;
             text_02.fontWeight = 'bold';
             text_02.fill = '#a6000a';
 
-        var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',25);
+        var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',70);
         // this.fromLeft(obj, function() {
         //   console.log('animation ok')
         // }, 5000)
@@ -783,7 +785,7 @@ var State4 = Object.assign({}, BaseState, {
         //     _this3.dangling(obj);
         // });
 
-        var DSRD = this.asw(w * .8, h *.7, 'DSRD', 25);
+        var DSRD = this.asw(w * .85, h *.75, 'DSRD', 25);
 
         DSRD.anchor.set(.5);
 
@@ -794,6 +796,18 @@ var State4 = Object.assign({}, BaseState, {
 var State5 = Object.assign({}, BaseState, {
     init: function init() {},
     preload: function preload() {},
-    create: function create() {}
+    create: function create() {
+        $('.page').hide();
+        $('.page5').show();
+
+        //var reward = this.asw(w * .5, h *.6, 'first_prize', 60);
+        //var reward = this.asw(w * .5, h *.6, 'secend_prize', 60);
+        var reward = this.asw(w * .5, h *.6, 'third_prize', 60);
+
+        var DSRD = this.asw(w * .85, h *.75, 'DSRD', 25);
+
+        DSRD.anchor.set(.5);
+
+    }
 
 });
