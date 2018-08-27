@@ -479,7 +479,7 @@ var State1 = Object.assign({}, BaseState, {
         var that = this;
         //that.state.start('State5');return;
         setTimeout(function(){
-            that.state.start('State2');
+            //that.state.start('State2');
         },2000);
 
         var jd = 0;

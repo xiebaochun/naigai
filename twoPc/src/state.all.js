@@ -475,7 +475,7 @@ var State1 = Object.assign({}, BaseState, {
         var that = this;
         //that.state.start('State5');return;
         setTimeout(function(){
-            that.state.start('State2');
+            //that.state.start('State2');
         },2000);
 
         var jd = 0;
@@ -519,7 +519,7 @@ var State1 = Object.assign({}, BaseState, {
                 //console.log(data);
                 //$('.page1').hide();
                 //$('.page2').show();
-                window.actIndex = data.index;
+                //window.actIndex = data.index;
                 that.state.start('State2');
                 //jdFun();
 
