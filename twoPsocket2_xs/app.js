@@ -61,14 +61,14 @@ var mainApp = new Vue({
         //that.doLogin();
         
       });
-      window.socketInstant.on('error', function (error) {
+      this.socketInstant.on('error', function (error) {
           window.location.reload();
       });
-      window.socketInstant.on('disconnect', function (error) {
+      this.socketInstant.on('disconnect', function (error) {
           window.location.reload();
       });
 
-      window.socketInstant.on("connect", function () {
+      this.socketInstant.on("connect", function () {
           console.log('socket 链接成功');
           // window.socketInstant.emit("getRewardType", function(data) {
           //     console.log('发送成功，获取奖品类型');
