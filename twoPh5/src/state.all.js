@@ -809,8 +809,8 @@ var State4 = Object.assign({}, BaseState, {
 
         });
         function showResult(money){
-            var redpacket_back = this.asw(w/2,h*.72,'redpacket_back',70);
-            var redpacket_middle = this.asw(w/2,h*.85,'redpacket_middle',55);
+            var redpacket_back = _this3.asw(w/2,h*.72,'redpacket_back',70);
+            var redpacket_middle = _this3.asw(w/2,h*.85,'redpacket_middle',55);
             
 
             var text = game.add.text(w/2, h *.8, '能力多\n大红包');
@@ -833,7 +833,7 @@ var State4 = Object.assign({}, BaseState, {
                 text_02.fontWeight = 'bold';
                 text_02.fill = '#a6000a';
 
-            var redpacket_front = this.asw(w/2,h*.8,'redpacket_front',70);
+            var redpacket_front = _this3.asw(w/2,h*.8,'redpacket_front',70);
             // this.fromLeft(obj, function() {
             //   console.log('animation ok')
             // }, 5000)
@@ -865,18 +865,19 @@ var State5 = Object.assign({}, BaseState, {
     init: function init() {},
     preload: function preload() {},
     create: function create() {
+        var that = this;
         window.Api.swLottery(reward_type, function(ret){
             if(ret.code == 200){
                 if(ret.isWin == 1){
                     if(reward_type == 1){
-                        var reward = this.asw(w * .5, h *.6, 'first_prize', 60);
+                        var reward = that.asw(w * .5, h *.6, 'first_prize', 60);
                     }else if(reward_type == 2){
-                        var reward = this.asw(w * .5, h *.6, 'secend_prize', 60);
+                        var reward = that.asw(w * .5, h *.6, 'secend_prize', 60);
                     }else if(reward_type == 3){
-                        var reward = this.asw(w * .5, h *.6, 'third_prize', 60);
+                        var reward = that.asw(w * .5, h *.6, 'third_prize', 60);
                     }
                 }else{
-                    var reward = this.asw(w * .5, h *.4, 'thankJoin', 60);
+                    var reward = that.asw(w * .5, h *.4, 'thankJoin', 60);
                 }
             }else{
                 alert(ret.msg || '抽奖失败！');
