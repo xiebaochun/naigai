@@ -723,7 +723,7 @@ var State3 = Object.assign({}, BaseState, {
                 emitter3.destroy();
               },1000)
               //gameStart()
-              game.time.events.repeat(Phaser.Timer.SECOND *.2, 30000, createOne, this);
+              game.time.events.repeat(Phaser.Timer.SECOND *.2, 20000, createOne, this);
               setTimeout(function(){
                 if(window.reward_type == 0){
                     _this2.state.start('State4');
