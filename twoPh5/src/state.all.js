@@ -542,11 +542,11 @@ var State1 = Object.assign({}, BaseState, {
             });
 
             window.socketInstant.on("rewardType", function(data) {
-                console.log(data,'接受奖品类型成功')
+               // console.log(data,'接受奖品类型成功')
                 window.reward_type = data.reward_type;
             });
             window.socketInstant.on("getStep", function(data) {
-                console.log(data,'接受步骤成功')
+               // console.log(data,'接受步骤成功')
                 if(data.step == 3 && window.step3==0){
 			
                     that.state.start('State3');
@@ -563,7 +563,7 @@ var State1 = Object.assign({}, BaseState, {
                 }
             });
             window.socketInstant.on("getProgress", function(data) {
-                console.log(data,'接受进度成功')
+               // console.log(data,'接受进度成功')
                 if(data.progress > 0 && data.progress<100){
                     window.progress = data.progress;
                     if(window.is_started == 0){
@@ -764,14 +764,14 @@ var State3 = Object.assign({}, BaseState, {
                 emitter3.destroy();
               },1000)
               //gameStart()
-              game.time.events.repeat(Phaser.Timer.SECOND *.2, 20000, createOne, this);
+              game.time.events.repeat(Phaser.Timer.SECOND *.2, 10000, createOne, this);
               setTimeout(function(){
                 if(window.reward_type == 0){
                     _this2.state.start('State4');
                 }else{
                     _this2.state.start('State5'); 
                 }
-              },30000);
+              },20000);
             },1500)
           })
         })
