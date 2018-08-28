@@ -491,6 +491,10 @@ var State1 = Object.assign({}, BaseState, {
         window.Api.saveUser(function(ret){
             console.log(ret,'用户信息');
             window.user_info = ret;
+            if(ret.isTrue == 0){
+                alert(ret.msg || '您还未签到哦');
+                window.location.href = 'http://t1.miaoxing100.cn/H5/srt_qd/index.jsp?mos=1';
+            }
         });
 
         //初始化信息?

@@ -565,7 +565,7 @@ var State2 = Object.assign({}, BaseState, {
             }else if(i>=70 && i<80){
                 k = .01;
             }else if(i>80){
-                k = .5;
+                k = .1;
             }
             $('.page1 p').css({ 'width': i + '%' });
             $('.page1 .run').css({ 'left': i + '%' }); 
@@ -574,7 +574,7 @@ var State2 = Object.assign({}, BaseState, {
                 that.state.start('State3');
                 timer = null;
             }
-        }, 1000/1000 );
+        }, 1000/600 );
     }
 });
 
