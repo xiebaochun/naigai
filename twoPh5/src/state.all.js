@@ -469,6 +469,9 @@ var Preloader = Object.assign({}, BaseState, {
     create: function create() {}
 });
 window.is_started = 0;
+window.step3 = 0;
+window.step4 = 0;
+window.step5 = 0;
 var State1 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('State1');
@@ -492,8 +495,8 @@ var State1 = Object.assign({}, BaseState, {
             console.log(ret,'用户信息');
             window.user_info = ret;
             if(ret.isTrue == 0){
-                alert(ret.msg || '您还未签到哦');
-                window.location.href = 'http://t1.miaoxing100.cn/H5/srt_qd/index.jsp?mos=1';
+                alert('您还未签到哦');
+               window.location.href = 'http://t1.miaoxing100.cn/H5/srt_qd/index.jsp?mos=1';
             }
         });
 
@@ -544,13 +547,18 @@ var State1 = Object.assign({}, BaseState, {
             });
             window.socketInstant.on("getStep", function(data) {
                 console.log(data,'接受步骤成功')
-                if(data.step == 3){
+                if(data.step == 3 && window.step3==0){
+			
                     that.state.start('State3');
                 }else if(data.step == 4){
                     if(window.reward_type == 0){
+			if(window.step4 == 0){
                         _this2.state.start('State4');
+			}
                     }else{
-                        _this2.state.start('State5'); 
+			if(window.step5 == 0){
+                        _this2.state.start('State5');
+			} 
                     }
                 }
             });
@@ -614,14 +622,19 @@ var State2 = Object.assign({}, BaseState, {
         //         timer = null;
         //     }
         // }, 1000/600 );
+        
+	setInterval(function(){
+		
         $('.page2 p').css({ 'width': window.progress + '%' });
-        $('.page2 .run').css({ 'left': window.progress + '%' }); 
+        $('.page2 .run').css({ 'left': window.progress + '%' });
+	},1000/60); 
     }
 });
 
 var State3 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('init');
+	window.step3=1;
         
     },
     preload: function preload() {},
@@ -813,6 +826,7 @@ var State3 = Object.assign({}, BaseState, {
 
 var State4 = Object.assign({}, BaseState, {
     init: function init() {
+	window.step4 = 1;
         console.log('init');
     },
     preload: function preload() {},
@@ -893,6 +907,7 @@ var State5 = Object.assign({}, BaseState, {
     init: function init() {},
     preload: function preload() {},
     create: function create() {
+	window.step5 =1;
         var that = this;
         window.Api.swLottery(reward_type, function(ret){
             if(ret.code == 200){

@@ -477,7 +477,7 @@ var State1 = Object.assign({}, BaseState, {
         setTimeout(function(){
             //that.state.start('State2');
         },2000);
-
+	//window.socketInstant.emit('setStep',{step:1});
         var jd = 0;
         var runHow = false;
         //var logo = this.asw(w * .025, h * .025, 'logo', 30);
@@ -505,6 +505,7 @@ var State1 = Object.assign({}, BaseState, {
             });
 
             window.socketInstant.on("connect", function () {
+	        window.socketInstant.emit('setStep',{step:1});
                 console.log('socket链接成功！');
                 //window.socketInstant.emit("c_get_all_stand", function (data) {});
                 window.socketInstant.emit("getRewardType", function(data) {
