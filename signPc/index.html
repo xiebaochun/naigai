@@ -48,7 +48,8 @@ a {
 	text-align: center;
 	border-radius: 30px;
 	cursor: default;
-	background-image: url(https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/07e63135343430363732305f02.jpg?20180826054116);
+	/*background-image: url(https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/07e63135343430363732305f02.jpg?20180826054116);*/
+	background-color: rgba(0,255,255,0.75);
 
 	background-size: cover;
 }
@@ -249,19 +250,10 @@ socketInstant.on("connect", function() {
 });
 
 var table = [
-	"H", "Hydrogen", "1.00794", 1, 1,
-	"He", "Helium", "4.002602", 18, 1,
-	"Li", "Lithium", "#6.941", 1, 2,
-	"Be", "Beryllium", "9.012182", 2, 2,
-	"B", "Boron", "#10.811", 13, 2,
-	"C", "Carbon", "#12.0107", 14, 2,
-	"N", "Nitrogen", "#14.0067", 15, 2,"H", "Hydrogen", "1.00794", 1, 1,
-	"He", "Helium", "4.002602", 18, 1,
-	"Li", "Lithium", "#6.941", 1, 2,
-	"Be", "Beryllium", "9.012182", 2, 2,
-	"B", "Boron", "#10.811", 13, 2,
-	"C", "Carbon", "#12.0107", 14, 2,
-	"N", "Nitrogen", "#14.0067", 15, 2
+	'https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/07e63135343430363732305f02.jpg?20180826054116',
+	'https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/07e63135343430363732305f02.jpg?20180826054116',
+	'https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/07e63135343430363732305f02.jpg?20180826054116',
+	'https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/07e63135343430363732305f02.jpg?20180826054116',
 ];
 var L = 1200,H = 800,K=2,y_=150;
 
@@ -580,6 +572,7 @@ function initObject() {
 
 		var element = document.createElement( 'div' );
 		element.className = 'element';
+		element.style.backgroundImage = 'url('+table[i]+')';
 		//element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
 		// var number = document.createElement( 'div' );
@@ -627,6 +620,8 @@ function refresh() {
 	});
 	objects = [];
 	
+	//往头像列表里加图片地址
+	tables.push('http://www.w3school.com.cn/ui2017/compatible_ie.png');
 	initObject();
 }
 function add() {
