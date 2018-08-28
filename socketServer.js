@@ -10,6 +10,7 @@ var onlineUser={};
 var onlineCount=0;
 var reward_type = 0;
 var connect_count = 0;
+var step = 1;
 io.on('connection',function (socket) {
     connect_count++;
     console.log('连接数:' + connect_count);
@@ -28,6 +29,20 @@ io.on('connection',function (socket) {
         console.log('setRewardType');
         reward_type = obj.reward_type;
     })
+    socket.on('progress',function (obj) {
+        io.emit('getProgress',{progress: obj.progress});
+    })
+
+    socket.on('setStep',function (obj) {
+        step = obj.step;
+        //io.emit('getStep',{step: obj.step});
+    })
+    setInterval(function(){
+        io.emit('getStep',{step: step});
+    },500);
+    // socket.on('getStep',function (obj) {
+    //     io.emit('onGetStep',{step: step});
+    // })
 
     socket.on('getRewardType',function (obj) {
         io.emit('rewardType',{reward_type: reward_type});

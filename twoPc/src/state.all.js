@@ -569,11 +569,13 @@ var State2 = Object.assign({}, BaseState, {
             }
             $('.page1 p').css({ 'width': i + '%' });
             $('.page1 .run').css({ 'left': i + '%' }); 
+            window.socketInstant.emit("progress", {progress: i});
             if( i>=100 ){
                 clearInterval(timer);
                 that.state.start('State3');
                 timer = null;
             }
+            
         }, 1000/600 );
     }
 });
@@ -581,7 +583,7 @@ var State2 = Object.assign({}, BaseState, {
 var State3 = Object.assign({}, BaseState, {
     init: function init() {
         console.log('init');
-        
+        window.socketInstant.emit("setStep", {step: 3});
     },
     preload: function preload() {},
     create: function create() {
@@ -650,6 +652,7 @@ var State3 = Object.assign({}, BaseState, {
               //gameStart()
               game.time.events.repeat(Phaser.Timer.SECOND *.05, 30000, createOne, this);
               setTimeout(function(){
+                window.socketInstant.emit("setStep", {step: 3});
                 if(window.reward_type == 0){
                     _this2.state.start('State4');
                 }else{

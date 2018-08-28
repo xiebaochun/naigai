@@ -542,6 +542,28 @@ var State1 = Object.assign({}, BaseState, {
                 console.log(data,'接受奖品类型成功')
                 window.reward_type = data.reward_type;
             });
+            window.socketInstant.on("getStep", function(data) {
+                console.log(data,'接受步骤成功')
+                if(data.step == 3){
+                    that.state.start('State3');
+                }else if(data.step == 4){
+                    if(window.reward_type == 0){
+                        _this2.state.start('State4');
+                    }else{
+                        _this2.state.start('State5'); 
+                    }
+                }
+            });
+            window.socketInstant.on("getProgress", function(data) {
+                console.log(data,'接受进度成功')
+                if(data.progress > 0 && data.progress<100){
+                    window.progress = data.progress;
+                    if(window.is_started == 0){
+                        that.state.start('State2');
+                    }
+                }
+            });
+
         }
 
         // function setProgress(num) {
@@ -571,27 +593,29 @@ var State2 = Object.assign({}, BaseState, {
     preload: function preload() {},
     create: function create() {
         var that = this;
-        var i = 0;
-        var k = 0.02;
-        var timer = setInterval( function(){
-            i += k;
-            if(i>30&& i<50){
-                k = .04;
-            }else if(i>=50 && i< 70){
-                k = .02;
-            }else if(i>=70 && i<80){
-                k = .01;
-            }else if(i>80){
-                k = .1;
-            }
-            $('.page2 p').css({ 'width': i + '%' });
-            $('.page2 .run').css({ 'left': i + '%' }); 
-            if( i>=100 ){
-                that.state.start('State3');
-                clearInterval(timer);
-                timer = null;
-            }
-        }, 1000/600 );
+        // var i = 0;
+        // var k = 0.02;
+        // var timer = setInterval( function(){
+        //     i += k;
+        //     if(i>30&& i<50){
+        //         k = .04;
+        //     }else if(i>=50 && i< 70){
+        //         k = .02;
+        //     }else if(i>=70 && i<80){
+        //         k = .01;
+        //     }else if(i>80){
+        //         k = .1;
+        //     }
+        //     $('.page2 p').css({ 'width': i + '%' });
+        //     $('.page2 .run').css({ 'left': i + '%' }); 
+        //     if( i>=100 ){
+        //         that.state.start('State3');
+        //         clearInterval(timer);
+        //         timer = null;
+        //     }
+        // }, 1000/600 );
+        $('.page2 p').css({ 'width': window.progress + '%' });
+        $('.page2 .run').css({ 'left': window.progress + '%' }); 
     }
 });
 
