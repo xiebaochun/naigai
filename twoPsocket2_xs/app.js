@@ -44,7 +44,7 @@ var mainApp = new Vue({
           console.log('reload')
           //window.location.reload();
       });
-      
+
     },
     initSocket: function() {
       // var openid = this.getParam("id");
@@ -56,7 +56,7 @@ var mainApp = new Vue({
       //     path: "/"
       //   }
       // );
-      this.socketInstant = io.connect("ws://127.0.0.1:5000");
+      this.socketInstant = io.connect("ws://47.99.38.45:5000");
       this.socketInstant.on("connect", function() {
         //that.doLogin();
         
