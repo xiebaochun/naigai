@@ -9,9 +9,11 @@ app.get('/socket/client/index.html',function (req,res) {
 var onlineUser={};
 var onlineCount=0;
 var reward_type = 0;
+var connect_count = 0;
 io.on('connection',function (socket) {
-    console.log('新用户登录');
-
+    connect_count++;
+    console.log('连接数:' + connect_count);
+    io.emit('connectCount',{});
     socket.on('reload',function (obj) {
         io.emit('reload',{});
         console.log('reload');
