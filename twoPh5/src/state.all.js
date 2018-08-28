@@ -509,7 +509,7 @@ var State1 = Object.assign({}, BaseState, {
             });
 
             window.socketInstant.on("connect", function () {
-                
+                console.log('socket 链接成功');
                 window.socketInstant.emit("getRewardType", function(data) {
                     console.log('发送成功，获取奖品类型');
                 });

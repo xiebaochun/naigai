@@ -44,6 +44,7 @@ var mainApp = new Vue({
           console.log('reload')
           //window.location.reload();
       });
+      
     },
     initSocket: function() {
       // var openid = this.getParam("id");
@@ -58,10 +59,22 @@ var mainApp = new Vue({
       this.socketInstant = io.connect("ws://127.0.0.1:5000");
       this.socketInstant.on("connect", function() {
         //that.doLogin();
-        that.watchSocket();
+        
+      });
+      window.socketInstant.on('error', function (error) {
+          window.location.reload();
+      });
+      window.socketInstant.on('disconnect', function (error) {
+          window.location.reload();
       });
 
-      
+      window.socketInstant.on("connect", function () {
+          console.log('socket 链接成功');
+          // window.socketInstant.emit("getRewardType", function(data) {
+          //     console.log('发送成功，获取奖品类型');
+          // });
+      });
+      that.watchSocket();
     },
     getParam: function(name) {
       return document.getElementById('nickid').value;
