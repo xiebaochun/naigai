@@ -11,6 +11,7 @@ var onlineCount=0;
 var reward_type = 0;
 var connect_count = 0;
 var step = 1;
+var timer = null;
 io.on('connection',function (socket) {
     connect_count++;
     console.log('连接数:' + connect_count);
@@ -37,9 +38,12 @@ io.on('connection',function (socket) {
         step = obj.step;
         //io.emit('getStep',{step: obj.step});
     })
-    setInterval(function(){
-        io.emit('getStep',{step: step});
-    },500);
+    
+    if(!timer){
+        timer = setInterval(function(){
+            io.emit('getStep',{step: step});
+        },500);
+    }
     // socket.on('getStep',function (obj) {
     //     io.emit('onGetStep',{step: step});
     // })

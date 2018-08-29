@@ -571,7 +571,7 @@ var State2 = Object.assign({}, BaseState, {
                 k = .1;
             }
             $('.page1 p').css({ 'width': i + '%' });
-            $('.page1 .run').css({ 'left': i + '%' }); 
+            $('.page1 .run').css({ 'left': i + '%' });
             window.socketInstant.emit("progress", {progress: i});
             if( i>=100 ){
                 clearInterval(timer);
