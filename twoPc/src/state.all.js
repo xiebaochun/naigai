@@ -501,9 +501,11 @@ var State1 = Object.assign({}, BaseState, {
                 window.location.reload();
             });
             window.socketInstant.on('disconnect', function (error) {
-                window.location.reload();
+                //window.location.reload();
             });
-
+            window.socketInstant.on('reconnect', function(transport_type,reconnectionAttempts){
+                console.log('reconnect*********',transport_type,reconnectionAttempts);
+            });
             window.socketInstant.on("connect", function () {
 	        window.socketInstant.emit('setStep',{step:1});
                 console.log('socket链接成功！');
